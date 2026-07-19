@@ -1,0 +1,251 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                 String               @id @default(uuid())
+  email              String               @unique
+  passwordHash       String
+  role               String               @default("STUDENT") // STUDENT, MODERATOR, ADMIN
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  profile            Profile?
+  sentConnections    Connection[]         @relation("SentConnections")
+  receivedConnections Connection[]        @relation("ReceivedConnections")
+  memberships        ProjectMember[]
+  applications       ProjectApplication[]
+  assignedTasks      Task[]
+  comments           Comment[]
+  messagesSent       Message[]            @relation("SentMessages")
+  messagesReceived   Message[]            @relation("ReceivedMessages")
+  notifications      Notification[]
+  savedProfiles      SavedProfile[]
+  savedProjects      SavedProject[]
+  sessionsRequested  MentorshipSession[]  @relation("SessionsRequested")
+  sessionsMentor     MentorshipSession[]  @relation("SessionsMentor")
+  reports            ModerationReport[]
+}
+
+model Profile {
+  id               String            @id @default(uuid())
+  userId           String            @unique
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  username         String            @unique
+  fullName         String
+  avatarUrl        String?
+  bannerUrl        String?
+  college          String
+  course           String
+  gradYear         Int
+  location         String
+  bio              String
+  githubUrl        String?
+  linkedinUrl      String?
+  portfolioUrl     String?
+  availability     String            @default("ACTIVE") // ACTIVE, BUSY, WEEKENDS
+  collabPreferences String
+  createdAt        DateTime          @default(now())
+  offers           SkillOffer[]
+  learns           SkillLearn[]
+  interests        ProfileInterest[]
+}
+
+model SkillOffer {
+  id        String   @id @default(uuid())
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  skillName String
+  level     String   @default("INTERMEDIATE") // BEGINNER, INTERMEDIATE, EXPERT
+}
+
+model SkillLearn {
+  id        String   @id @default(uuid())
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  skillName String
+  level     String   @default("INTERMEDIATE") // BEGINNER, INTERMEDIATE, EXPERT
+}
+
+model ProfileInterest {
+  id        String   @id @default(uuid())
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  name      String
+}
+
+model Connection {
+  id         String   @id @default(uuid())
+  senderId   String
+  sender     User     @relation("SentConnections", fields: [senderId], references: [id], onDelete: Cascade)
+  receiverId String
+  receiver   User     @relation("ReceivedConnections", fields: [receiverId], references: [id], onDelete: Cascade)
+  status     String   @default("PENDING") // PENDING, ACCEPTED, DECLINED
+  message    String?
+  createdAt  DateTime @default(now())
+}
+
+model Project {
+  id          String               @id @default(uuid())
+  ownerId     String
+  title       String
+  description String
+  category    String
+  timeline    String
+  status      String               @default("RECRUITING") // RECRUITING, ACTIVE, COMPLETED, ARCHIVED
+  githubUrl   String?
+  demoUrl     String?
+  bannerUrl   String?
+  createdAt   DateTime             @default(now())
+  members     ProjectMember[]
+  applicants  ProjectApplication[]
+  tasks       Task[]
+  milestones  Milestone[]
+  resources   ProjectResource[]
+  activities  ActivityEvent[]
+  savedBy     SavedProject[]
+}
+
+model ProjectMember {
+  id        String   @id @default(uuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      String   @default("CONTRIBUTOR") // LEAD, DEVELOPER, DESIGNER, MARKETING
+  joinedAt  DateTime @default(now())
+}
+
+model ProjectApplication {
+  id          String   @id @default(uuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  roleApplied String
+  message     String?
+  status      String   @default("PENDING") // PENDING, ACCEPTED, REJECTED
+  createdAt   DateTime @default(now())
+}
+
+model Task {
+  id          String    @id @default(uuid())
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assigneeId  String?
+  assignee    User?     @relation(fields: [assigneeId], references: [id], onDelete: SetNull)
+  title       String
+  description String?
+  status      String    @default("TODO") // TODO, IN_PROGRESS, REVIEW, DONE
+  priority    String    @default("MEDIUM") // LOW, MEDIUM, HIGH
+  dueDate     DateTime?
+  createdAt   DateTime  @default(now())
+  comments    Comment[]
+}
+
+model Milestone {
+  id          String    @id @default(uuid())
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  dueDate     DateTime?
+  isCompleted Boolean   @default(false)
+}
+
+model ProjectResource {
+  id        String   @id @default(uuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title     String
+  url       String
+  type      String   @default("LINK") // LINK, DOC, REPO
+}
+
+model ActivityEvent {
+  id         String   @id @default(uuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  actorId    String
+  actionType String   // TASK_CREATE, TASK_COMPLETE, MILESTONE_REACH, RESOURCE_ADD, MEMBER_JOIN
+  details    String
+  createdAt  DateTime @default(now())
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model MentorshipSession {
+  id              String   @id @default(uuid())
+  requesterId     String
+  requester       User     @relation("SessionsRequested", fields: [requesterId], references: [id], onDelete: Cascade)
+  mentorId        String
+  mentor          User     @relation("SessionsMentor", fields: [mentorId], references: [id], onDelete: Cascade)
+  topic           String
+  skillsExchanged String
+  status          String   @default("REQUESTED") // REQUESTED, ACCEPTED, DECLINED, COMPLETED
+  scheduledAt     DateTime
+  createdAt       DateTime @default(now())
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  senderId   String
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiverId String
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+  content    String
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  content   String
+  type      String   // CONNECTION, APPLICATION, SESSION, TASK, COMMENT
+  link      String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model SavedProfile {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  targetProfileId String
+  createdAt       DateTime @default(now())
+}
+
+model SavedProject {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model ModerationReport {
+  id         String   @id @default(uuid())
+  reporterId String
+  reporter   User     @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+  targetType String   // USER, PROJECT
+  targetId   String
+  reason     String
+  status     String   @default("PENDING") // PENDING, RESOLVED
+  createdAt  DateTime @default(now())
+}
