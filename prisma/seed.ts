@@ -293,11 +293,11 @@ async function main() {
   console.log("Students created.");
 
   // Helper arrays
-  const alexUser = createdUsers.find((u) => u.profile.username === "alexchen");
-  const sarahUser = createdUsers.find((u) => u.profile.username === "sarahm");
-  const marcusUser = createdUsers.find((u) => u.profile.username === "marcusk");
-  const emilyUser = createdUsers.find((u) => u.profile.username === "emilyw");
-  const davidUser = createdUsers.find((u) => u.profile.username === "davidkim");
+  const alexUser = createdUsers.find((u) => u.profile.username === "alexchen")!;
+  const sarahUser = createdUsers.find((u) => u.profile.username === "sarahm")!;
+  const marcusUser = createdUsers.find((u) => u.profile.username === "marcusk")!;
+  const emilyUser = createdUsers.find((u) => u.profile.username === "emilyw")!;
+  const davidUser = createdUsers.find((u) => u.profile.username === "davidkim")!;
 
   // 2. Create connections
   console.log("Seeding connections...");
