@@ -231,9 +231,10 @@ async function main() {
   ];
 
   console.log(`Creating ${studentData.length} students...`);
-  const createdUsers: (Prisma.UserGetPayload<{ include: { profile: true } }> & {
+  type SeedUser = Prisma.UserGetPayload<{ include: { profile: true } }> & {
     profile: NonNullable<Prisma.UserGetPayload<{ include: { profile: true } }>["profile"]>;
-  })[] = [];
+  };
+  const createdUsers: SeedUser[] = [];
 
   for (const item of studentData) {
     // Add one admin role for testing
@@ -287,7 +288,7 @@ async function main() {
         profile: true
       }
     });
-    createdUsers.push(user);
+    createdUsers.push(user as SeedUser);
   }
   console.log("Students created.");
 
