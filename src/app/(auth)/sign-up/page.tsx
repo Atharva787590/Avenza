@@ -76,14 +76,14 @@ export default function SignUpPage() {
               <Input
                 name="email"
                 type="email"
-                placeholder="alex.chen@stanford.edu"
+                placeholder="aarav.mehta@iitb.ac.in"
                 required
                 className="pl-10"
                 disabled={loading}
               />
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              Please use your official .edu university email address.
+              Please use your official university email address.
             </p>
           </div>
 

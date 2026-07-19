@@ -30,200 +30,196 @@ async function main() {
   // Precomputed bcrypt hash for "password123" to make seeding fast
   const passwordHash = await bcrypt.hash("password123", 10);
 
-  // 1. Seed Users and Profiles
+  // 1. Seed Users and Profiles with Indian Context
   const studentData = [
     {
-      email: "alex.chen@stanford.edu",
-      username: "alexchen",
-      fullName: "Alex Chen",
-      college: "Stanford University",
+      email: "aarav.mehta@iitb.ac.in",
+      username: "aaravm",
+      fullName: "Aarav Mehta",
+      college: "IIT Bombay",
       course: "Computer Science",
       gradYear: 2027,
-      location: "Palo Alto, CA",
-      bio: "Ambitious developer focusing on full-stack web platforms and interactive user interfaces. Love building products that solve real campus problems.",
-      githubUrl: "https://github.com/alexchen",
-      linkedinUrl: "https://linkedin.com/in/alexchen",
-      portfolioUrl: "https://alexchen.dev",
+      location: "Mumbai, Maharashtra",
+      bio: "Ambitious developer focusing on full-stack web platforms and interactive user interfaces. Passionate about building products for India's builder economy.",
+      githubUrl: "https://github.com/aaravmehta",
+      linkedinUrl: "https://linkedin.com/in/aaravmehta",
+      portfolioUrl: "https://aaravmehta.dev",
       availability: "ACTIVE",
       collabPreferences: "Looking to join React/Next.js hackathon teams as frontend lead.",
       offers: [
-        { name: "React", level: "EXPERT" },
-        { name: "TypeScript", level: "EXPERT" },
-        { name: "Tailwind CSS", level: "EXPERT" },
-        { name: "Figma", level: "INTERMEDIATE" }
+        { name: "React", level: "EXPERT" as const },
+        { name: "TypeScript", level: "EXPERT" as const },
+        { name: "Tailwind CSS", level: "EXPERT" as const },
+        { name: "Figma", level: "INTERMEDIATE" as const }
       ],
       learns: [
-        { name: "PostgreSQL", level: "BEGINNER" },
-        { name: "Next.js Server Actions", level: "INTERMEDIATE" },
-        { name: "Node.js", level: "INTERMEDIATE" }
+        { name: "PostgreSQL", level: "BEGINNER" as const },
+        { name: "Next.js Server Actions", level: "INTERMEDIATE" as const },
+        { name: "Node.js", level: "INTERMEDIATE" as const }
       ],
       interests: ["Hackathons", "EdTech", "Design Systems", "Web Performance"]
     },
     {
-      email: "sarah.m@mit.edu",
-      username: "sarahm",
-      fullName: "Sarah Miller",
-      college: "MIT",
+      email: "shreya.i@pilani.bits-pilani.ac.in",
+      username: "shreyai",
+      fullName: "Shreya Iyer",
+      college: "BITS Pilani",
       course: "Data Science & AI",
       gradYear: 2026,
-      location: "Cambridge, MA",
-      bio: "AI researcher turned builder. Interested in applying ML models to education, climate data, and personalized recommendations.",
-      githubUrl: "https://github.com/sarahm",
-      linkedinUrl: "https://linkedin.com/in/sarahm",
-      portfolioUrl: "https://sarahm.ai",
+      location: "Pilani, Rajasthan",
+      bio: "AI researcher turned builder. Interested in applying ML models to agriculture, climate data, and personalized student learning paths.",
+      githubUrl: "https://github.com/shreyai",
+      linkedinUrl: "https://linkedin.com/in/shreyai",
+      portfolioUrl: "https://shreyai.ai",
       availability: "ACTIVE",
       collabPreferences: "Interested in helping teams integrate AI capabilities, embeddings, or complex analysis dashboards.",
       offers: [
-        { name: "Python", level: "EXPERT" },
-        { name: "Machine Learning", level: "EXPERT" },
-        { name: "PyTorch", level: "EXPERT" },
-        { name: "SQL", level: "INTERMEDIATE" }
+        { name: "Python", level: "EXPERT" as const },
+        { name: "Machine Learning", level: "EXPERT" as const },
+        { name: "PyTorch", level: "EXPERT" as const },
+        { name: "SQL", level: "INTERMEDIATE" as const }
       ],
       learns: [
-        { name: "React", level: "BEGINNER" },
-        { name: "FastAPI", level: "INTERMEDIATE" },
-        { name: "Docker", level: "INTERMEDIATE" }
+        { name: "React", level: "BEGINNER" as const },
+        { name: "FastAPI", level: "INTERMEDIATE" as const },
+        { name: "Docker", level: "INTERMEDIATE" as const }
       ],
       interests: ["Climate Tech", "Generative AI", "Cognitive Science", "Algorithms"]
     },
     {
-      email: "marcus.k@berkeley.edu",
-      username: "marcusk",
-      fullName: "Marcus Kaelen",
-      college: "UC Berkeley",
+      email: "rohan.j@iiit.ac.in",
+      username: "rohanj",
+      fullName: "Rohan Joshi",
+      college: "IIIT Hyderabad",
       course: "Cognitive Science",
       gradYear: 2028,
-      location: "Berkeley, CA",
-      bio: "UX Designer and Researcher. Passionate about accessibility, inclusive design frameworks, and creating interfaces that feel intuitive and editorial.",
-      githubUrl: "https://github.com/marcusdesign",
-      linkedinUrl: "https://linkedin.com/in/marcusk",
-      portfolioUrl: "https://marcus.design",
+      location: "Hyderabad, Telangana",
+      bio: "UX Designer and Researcher. Passionate about localizing interfaces, accessibility, and creating digital experiences that feel intuitive and clean.",
+      githubUrl: "https://github.com/rohanjdesign",
+      linkedinUrl: "https://linkedin.com/in/rohanj",
+      portfolioUrl: "https://rohanj.design",
       availability: "WEEKENDS",
       collabPreferences: "Looking for back-end developers to partner on accessibility-oriented educational projects.",
       offers: [
-        { name: "Figma", level: "EXPERT" },
-        { name: "UI/UX Design", level: "EXPERT" },
-        { name: "User Research", level: "EXPERT" },
-        { name: "CSS Grid/Flexbox", level: "INTERMEDIATE" }
+        { name: "Figma", level: "EXPERT" as const },
+        { name: "UI/UX Design", level: "EXPERT" as const },
+        { name: "User Research", level: "EXPERT" as const },
+        { name: "CSS Grid/Flexbox", level: "INTERMEDIATE" as const }
       ],
       learns: [
-        { name: "Tailwind CSS", level: "INTERMEDIATE" },
-        { name: "JavaScript", level: "BEGINNER" }
+        { name: "Tailwind CSS", level: "INTERMEDIATE" as const },
+        { name: "JavaScript", level: "BEGINNER" as const }
       ],
       interests: ["Accessibility", "Digital Ergonomics", "Product Strategy", "Art & Typography"]
     },
     {
-      email: "emily.w@gatech.edu",
-      username: "emilyw",
-      fullName: "Emily Wong",
-      college: "Georgia Tech",
+      email: "ananya.s@dtu.ac.in",
+      username: "ananyas",
+      fullName: "Ananya Sharma",
+      college: "DTU Delhi",
       course: "Computer Science",
       gradYear: 2027,
-      location: "Atlanta, GA",
+      location: "Delhi NCR",
       bio: "Mobile-first developer. Flutter enthusiast who loves compiling beautiful cross-platform applications and exploring micro-interactions.",
-      githubUrl: "https://github.com/emilyw",
-      linkedinUrl: "https://linkedin.com/in/emilyw",
-      portfolioUrl: "https://emily.dev",
+      githubUrl: "https://github.com/ananyas",
+      linkedinUrl: "https://linkedin.com/in/ananyas",
+      portfolioUrl: "https://ananya.dev",
       availability: "ACTIVE",
       collabPreferences: "Open to team projects requiring cross-platform mobile apps.",
       offers: [
-        { name: "Flutter", level: "EXPERT" },
-        { name: "Dart", level: "EXPERT" },
-        { name: "Firebase", level: "EXPERT" },
-        { name: "React Native", level: "BEGINNER" }
+        { name: "Flutter", level: "EXPERT" as const },
+        { name: "Dart", level: "EXPERT" as const },
+        { name: "Firebase", level: "EXPERT" as const },
+        { name: "React Native", level: "BEGINNER" as const }
       ],
       learns: [
-        { name: "TypeScript", level: "INTERMEDIATE" },
-        { name: "System Design", level: "BEGINNER" }
+        { name: "TypeScript", level: "INTERMEDIATE" as const },
+        { name: "System Design", level: "BEGINNER" as const }
       ],
       interests: ["Mobile UX", "Cross-Platform Tools", "Campus Utility", "Interactive Widgets"]
     },
     {
-      email: "david.kim@cmu.edu",
-      username: "davidkim",
-      fullName: "David Kim",
-      college: "Carnegie Mellon University",
+      email: "kabir.n@rvce.edu.in",
+      username: "kabirn",
+      fullName: "Kabir Nair",
+      college: "RVCE Bengaluru",
       course: "Software Engineering",
       gradYear: 2026,
-      location: "Pittsburgh, PA",
+      location: "Bengaluru, Karnataka",
       bio: "Back-end architect. Love optimizing SQL query plans, designing robust database schemas, and writing secure REST & GraphQL endpoints.",
-      githubUrl: "https://github.com/davidkim-backend",
-      linkedinUrl: "https://linkedin.com/in/davidkim-backend",
-      portfolioUrl: "https://davidkim.io",
+      githubUrl: "https://github.com/kabirn-backend",
+      linkedinUrl: "https://linkedin.com/in/kabirn-backend",
+      portfolioUrl: "https://kabirn.io",
       availability: "BUSY",
       collabPreferences: "Happy to advise on database schema design, indexing, or API structures for student projects.",
       offers: [
-        { name: "PostgreSQL", level: "EXPERT" },
-        { name: "Node.js", level: "EXPERT" },
-        { name: "Prisma ORM", level: "EXPERT" },
-        { name: "Express", level: "EXPERT" }
+        { name: "PostgreSQL", level: "EXPERT" as const },
+        { name: "Node.js", level: "EXPERT" as const },
+        { name: "Prisma ORM", level: "EXPERT" as const },
+        { name: "Express", level: "EXPERT" as const }
       ],
       learns: [
-        { name: "Docker", level: "INTERMEDIATE" },
-        { name: "Redis", level: "INTERMEDIATE" },
-        { name: "Go", level: "BEGINNER" }
+        { name: "Docker", level: "INTERMEDIATE" as const },
+        { name: "Redis", level: "INTERMEDIATE" as const },
+        { name: "Go", level: "BEGINNER" as const }
       ],
       interests: ["Databases", "Distributed Systems", "Performance Tuning", "Caching Techniques"]
     },
-    // Add 20 more users to hit the 25+ profile requirement
     ...Array.from({ length: 21 }).map((_, i) => {
       const names = [
-        "Aisha Rahman", "Liam O'Connor", "Sofia Rodriguez", "Ethan Jackson",
-        "Chloe Patel", "Noah Zhang", "Isabella Rossi", "Lucas Silva",
-        "Olivia Dubois", "Mason Tanaka", "Ava Nkosi", "Logan Wright",
-        "Mia Hernandez", "Benjamin Carter", "Charlotte Kim", "Daniel Miller",
-        "Amara Okafor", "James Taylor", "Grace Van Der Berg", "Oliver Hansen", "Zoe Jenkins"
+        "Aisha Rahman", "Devanshu Gupta", "Priya Sen", "Gautham Krishnan",
+        "Sneha Reddy", "Aditya Verma", "Diya Das", "Vikram Malhotra",
+        "Riya Kapoor", "Tarun Saxena", "Kriti Nair", "Rahul Bansal",
+        "Neha Pillai", "Sanjay Nair", "Pooja Rao", "Amit Patel",
+        "Karan Shah", "Meera Deshmukh", "Nikhil Sharma", "Tanvi Joshi", "Ishaan Roy"
       ];
       const colleges = [
-        "Stanford University", "MIT", "UC Berkeley", "Georgia Tech",
-        "Carnegie Mellon University", "University of Michigan", "UT Austin",
-        "Cornell University", "University of Washington", "NYU"
+        "IIT Bombay", "BITS Pilani", "IIT Delhi", "IIIT Hyderabad",
+        "NIT Trichy", "COEP Pune", "RVCE Bengaluru", "VIT Vellore",
+        "IIT Madras", "IIT Kharagpur"
       ];
       const courses = [
-        "Computer Science", "Data Science & AI", "Cognitive Science",
-        "Software Engineering", "Electrical Engineering", "Interactive Media Design",
-        "Business Analytics", "Climate Engineering", "Product Management"
+        "Computer Science", "Data Science & AI", "Electronics & Comm",
+        "Software Engineering", "Mechanical Engineering", "Design & UX",
+        "Business Analytics", "Biotech Engineering", "Product Management"
       ];
       const cities = [
-        "Palo Alto, CA", "Cambridge, MA", "Berkeley, CA", "Atlanta, GA",
-        "Pittsburgh, PA", "Ann Arbor, MI", "Austin, TX", "Ithaca, NY",
-        "Seattle, WA", "New York, NY"
+        "Bengaluru, Karnataka", "Mumbai, Maharashtra", "Delhi NCR", "Hyderabad, Telangana",
+        "Pune, Maharashtra", "Chennai, Tamil Nadu", "Kolkata, West Bengal", "Pilani, Rajasthan",
+        "Goa", "Vellore, Tamil Nadu"
       ];
       const skillsPool = [
-        "React", "TypeScript", "Tailwind CSS", "Figma", "Python",
-        "Machine Learning", "PyTorch", "SQL", "PostgreSQL", "Node.js",
-        "Prisma ORM", "Flutter", "Dart", "Firebase", "Go", "Docker", "Svelte",
-        "Vue.js", "C++", "Java", "Docker", "GraphQL", "Tailwind"
+        "React", "TypeScript", "Python", "Node.js", "Figma", "UI/UX Design", "Docker", "SQL",
+        "Machine Learning", "FastAPI", "Go", "Java", "C++", "Next.js", "Tailwind CSS"
       ];
 
       const name = names[i % names.length];
-      const username = name.toLowerCase().replace(/[^a-z]/g, "");
+      const username = name.toLowerCase().replace(/[^a-z]/g, "") + i;
       const college = colleges[i % colleges.length];
-      const course = courses[i % courses.length];
-      const location = cities[i % cities.length];
-      const gradYear = 2026 + (i % 3);
+      const course = courses[(i + 2) % courses.length];
+      const city = cities[i % cities.length];
 
       return {
-        email: `${username}@${college.toLowerCase().split(" ")[0].replace(/[^a-z]/g, "")}.edu`,
+        email: `${username}@college.edu.in`,
         username,
         fullName: name,
         college,
         course,
-        gradYear,
-        location,
-        bio: `Hi, I'm ${name}! I study ${course} at ${college}. I'm passionate about technology, collaboration, and building awesome student projects.`,
+        gradYear: 2026 + (i % 3),
+        location: city,
+        bio: `Student at ${college} studying ${course}. Eager to collaborate on student builder initiatives.`,
         githubUrl: `https://github.com/${username}`,
         linkedinUrl: `https://linkedin.com/in/${username}`,
         portfolioUrl: `https://${username}.me`,
-        availability: i % 3 === 0 ? "ACTIVE" : i % 3 === 1 ? "WEEKENDS" : "BUSY",
-        collabPreferences: "Looking to collaborate with motivated peers on campus products.",
+        availability: i % 2 === 0 ? "ACTIVE" as const : "WEEKENDS" as const,
+        collabPreferences: "Open to joining new projects or sharing skills.",
         offers: [
-          { name: skillsPool[i % skillsPool.length], level: "EXPERT" },
-          { name: skillsPool[(i + 1) % skillsPool.length], level: "INTERMEDIATE" }
+          { name: skillsPool[i % skillsPool.length], level: "EXPERT" as const },
+          { name: skillsPool[(i + 1) % skillsPool.length], level: "INTERMEDIATE" as const }
         ],
         learns: [
-          { name: skillsPool[(i + 3) % skillsPool.length], level: "BEGINNER" },
-          { name: skillsPool[(i + 4) % skillsPool.length], level: "INTERMEDIATE" }
+          { name: skillsPool[(i + 3) % skillsPool.length], level: "BEGINNER" as const },
+          { name: skillsPool[(i + 4) % skillsPool.length], level: "INTERMEDIATE" as const }
         ],
         interests: ["Hackathons", "Tech Careers", "Product Design", "Collaboration"]
       };
@@ -239,10 +235,8 @@ async function main() {
   for (const item of studentData) {
     // Add one admin role for testing
     let role = "STUDENT";
-    if (item.username === "alexchen") {
+    if (item.username === "aaravm") {
       role = "ADMIN";
-    } else if (item.username === "sarahm") {
-      role = "MODERATOR";
     }
 
     const user = await prisma.user.create({
@@ -292,12 +286,12 @@ async function main() {
   }
   console.log("Students created.");
 
-  // Helper arrays
-  const alexUser = createdUsers.find((u) => u.profile.username === "alexchen")!;
-  const sarahUser = createdUsers.find((u) => u.profile.username === "sarahm")!;
-  const marcusUser = createdUsers.find((u) => u.profile.username === "marcusk")!;
-  const emilyUser = createdUsers.find((u) => u.profile.username === "emilyw")!;
-  const davidUser = createdUsers.find((u) => u.profile.username === "davidkim")!;
+  // Helper arrays for lookups
+  const alexUser = createdUsers.find((u) => u.profile.username === "aaravm")!;
+  const sarahUser = createdUsers.find((u) => u.profile.username === "shreyai")!;
+  const marcusUser = createdUsers.find((u) => u.profile.username === "rohanj")!;
+  const emilyUser = createdUsers.find((u) => u.profile.username === "ananyas")!;
+  const davidUser = createdUsers.find((u) => u.profile.username === "kabirn")!;
 
   // 2. Create connections
   console.log("Seeding connections...");
@@ -305,31 +299,29 @@ async function main() {
     data: [
       { senderId: alexUser.id, receiverId: sarahUser.id, status: "ACCEPTED" },
       { senderId: alexUser.id, receiverId: marcusUser.id, status: "ACCEPTED" },
-      { senderId: alexUser.id, receiverId: emilyUser.id, status: "PENDING", message: "Hey Emily, let's team up for the HackMIT next weekend!" },
+      { senderId: alexUser.id, receiverId: emilyUser.id, status: "PENDING", message: "Hey Ananya! Saw your Flutter profile, let's connect." },
       { senderId: davidUser.id, receiverId: alexUser.id, status: "ACCEPTED" },
-      { senderId: sarahUser.id, receiverId: marcusUser.id, status: "ACCEPTED" },
-      { senderId: emilyUser.id, receiverId: davidUser.id, status: "PENDING", message: "Hi David, I saw your database optimization post. Let's exchange skills!" },
-      { senderId: createdUsers[5].id, receiverId: alexUser.id, status: "PENDING", message: "Would love to connect and talk React component rendering optimizations." }
+      { senderId: sarahUser.id, receiverId: marcusUser.id, status: "ACCEPTED" }
     ]
   });
 
-  // 3. Create Projects (10 projects)
+  // 3. Create Projects (10 projects with Indian themes)
   console.log("Seeding projects...");
   const projectsData = [
     {
       ownerId: alexUser.id,
-      title: "EcoTrack",
-      description: "A web application that allows students to track and reduce their carbon footprint by monitoring daily campus transport, meals, and recycling habits. Offers clean data visualization dashboards, campus competitions, and sharing utilities.",
+      title: "EcoTrack Bharat",
+      description: "A web application that allows Indian college campuses to track and reduce carbon emissions by monitoring hostel transport, cafeteria meals, and localized waste management. Built for Indian context.",
       category: "Climate Tech",
-      timeline: "3 Months (Fall Hackathon Series)",
+      timeline: "3 Months",
       status: "RECRUITING",
-      githubUrl: "https://github.com/alexchen/ecotrack",
-      demoUrl: "https://ecotrack.vercel.app",
-      bannerUrl: "/banners/ecotrack.jpg",
+      githubUrl: "https://github.com/aaravmehta/ecotrack-bharat",
+      demoUrl: "https://ecotrack-bharat.vercel.app",
+      bannerUrl: null,
       roles: ["Frontend Developer", "Back-end Engineer", "UX/UI Designer"],
       milestones: [
-        { title: "Dashboard Mockups", description: "Design Figma mockups for core statistics charts", isCompleted: true },
-        { title: "Database Architecture", description: "Define SQL schemas for tracking events and users", isCompleted: true },
+        { title: "Dashboard Wireframes", description: "Design responsive dashboards for student statistics", isCompleted: true },
+        { title: "Database Architecture", description: "Define schema for tracking carbon events", isCompleted: true },
         { title: "API Development", description: "Build backend REST endpoints in Express/PostgreSQL", isCompleted: false },
         { title: "Vercel Deployment", description: "Configure production deployment pipelines", isCompleted: false }
       ],
@@ -340,12 +332,12 @@ async function main() {
     },
     {
       ownerId: emilyUser.id,
-      title: "CampusSync",
-      description: "A native Flutter-based mobile application resolving campus event clutter. Aggregates official club events, informal student meetups, study sessions, and hackathons into a highly visual, geographical-based calendar dashboard.",
+      title: "CampusSync Pilani",
+      description: "A native Flutter-based mobile application resolving campus event clutter. Aggregates official club events, hostel mess announcements, study groups, and hackathons into a geographical-based calendar dashboard.",
       category: "Campus Life",
       timeline: "2 Months",
       status: "ACTIVE",
-      githubUrl: "https://github.com/emilyw/campussynd",
+      githubUrl: "https://github.com/ananyas/campussynd-pilani",
       demoUrl: null,
       bannerUrl: null,
       roles: ["Flutter Developer", "Marketing Lead", "Firebase Engineer"],
@@ -355,37 +347,37 @@ async function main() {
         { title: "Beta Test Release", description: "Distribute TestFlight and APK to 50 active campus testers", isCompleted: false }
       ],
       resources: [
-        { title: "Flutter Project Repository", url: "https://github.com/emilyw/campussynd", type: "REPO" }
+        { title: "Flutter Project Repository", url: "https://github.com/ananyas/campussynd-pilani", type: "REPO" }
       ]
     },
     {
       ownerId: marcusUser.id,
-      title: "AccessClass",
-      description: "An accessibility-centric extension that generates high-fidelity transcripts, synchronized summaries, and interactive definitions for video lectures. Engineered using custom whisper models optimized for technical speech.",
+      title: "Kailash Sanskrit OCR",
+      description: "An accessibility-centric web extension that scans and transcribes high-fidelity Sanskrit text manuscripts, generating synchronized English translations and interactive dictionaries.",
       category: "Accessibility",
       timeline: "4 Months",
       status: "RECRUITING",
-      githubUrl: "https://github.com/marcusdesign/accessclass",
-      demoUrl: "https://accessclass.org",
+      githubUrl: "https://github.com/rohanjdesign/kailash-ocr",
+      demoUrl: "https://kailash-ocr.org",
       bannerUrl: null,
-      roles: ["Python ML Engineer", "Browser Extension Architect", "Accessibility Consultant"],
+      roles: ["Python ML Engineer", "Browser Extension Architect", "Linguistic Consultant"],
       milestones: [
-        { title: "Whisper Pipeline Setup", description: "Deploy Whisper model on server and verify latency", isCompleted: false },
-        { title: "Extension Styling", description: "Design screen overlay layouts for accessibility standard WCAG AAA", isCompleted: false }
+        { title: "OCR Pipeline Setup", description: "Deploy custom model on server and verify latency", isCompleted: false },
+        { title: "Extension Overlay UI", description: "Design layout according to W3C standards", isCompleted: false }
       ],
       resources: [
-        { title: "WCAG AAA Checklist Guide", url: "https://w3.org/WAI/standards-guidelines/wcag/", type: "LINK" }
+        { title: "Manuscript API Guide", url: "https://kailash-ocr.org/docs", type: "LINK" }
       ]
     },
     {
       ownerId: sarahUser.id,
-      title: "PeerMentors",
-      description: "An automated pairing portal helping freshmen discover upperclassmen mentors. Utilizes Gale-Shapley matching algorithm customized for academic paths, skill targets, and shared campus interests.",
+      title: "Gurukul Match",
+      description: "An automated mentorship matching portal helping engineering freshmen find seniors. Utilizes Gale-Shapley matching algorithm customized for academic paths, skill targets, and shared campus interests.",
       category: "Education",
       timeline: "3 Months",
       status: "ACTIVE",
-      githubUrl: "https://github.com/sarahm/peermentors",
-      demoUrl: "https://peermentors.mit.edu",
+      githubUrl: "https://github.com/shreyai/gurukul-match",
+      demoUrl: "https://gurukul-match.bits-pilani.ac.in",
       bannerUrl: null,
       roles: ["Python Data Scientist", "Next.js Web Developer"],
       milestones: [
@@ -396,13 +388,13 @@ async function main() {
     },
     {
       ownerId: davidUser.id,
-      title: "TaskFlow Core",
+      title: "ChakraFlow",
       description: "A developer-first, localized Kanban and collaboration tool utilizing WebSockets to synchronize task updates instantly without heavy cloud DB round-trips. Great for hackathons and local sandbox testing.",
       category: "Web Development",
       timeline: "1 Month",
       status: "COMPLETED",
-      githubUrl: "https://github.com/davidkim-backend/taskflow-core",
-      demoUrl: "https://taskflow.io",
+      githubUrl: "https://github.com/kabirn-backend/chakraflow",
+      demoUrl: "https://chakraflow.io",
       bannerUrl: null,
       roles: [],
       milestones: [
@@ -411,18 +403,17 @@ async function main() {
       ],
       resources: []
     },
-    // Adding 5 more projects to hit the 10 project requirement
     ...Array.from({ length: 5 }).map((_, i) => {
       const creatorIdx = (i + 5) % createdUsers.length;
       const creator = createdUsers[creatorIdx];
       const titles = [
-        "AuraMusic", "HoloStudy", "CycleNet", "MealShare", "ByteCode Hackathon Manager"
+        "AuraMusic India", "HoloStudy AR", "CycleNet Pune", "MealShare Mumbai", "BharatCode Manager"
       ];
       const categories = [
         "Entertainment", "EdTech / AR", "Campus Utilities", "Social Impact", "Developer Tools"
       ];
       const descriptions = [
-        "A real-time music collaborative workspace allowing student artists to exchange audio stems, write lyrics synchronously, and schedule online jam sessions.",
+        "A real-time music collaborative workspace allowing Indian student artists to exchange audio stems, write lyrics synchronously, and schedule online jam sessions.",
         "An AR mobile application creating interactive 3D anatomy flashcards for biology and pre-med students on campus.",
         "A peer-to-peer bike-sharing coordinate tool helping university campuses coordinate bicycle access, locks, and geolocation tracking.",
         "A redistribution platform linking dining halls and local grocery stores with student food pantries, minimizing food waste.",
@@ -487,9 +478,7 @@ async function main() {
       }
     });
 
-    // Seed some other members for the project
-    if (project.title === "EcoTrack") {
-      // Add Sarah and David
+    if (project.title === "EcoTrack Bharat") {
       await prisma.projectMember.create({
         data: { projectId: project.id, userId: sarahUser.id, role: "BACKEND" }
       });
@@ -497,7 +486,6 @@ async function main() {
         data: { projectId: project.id, userId: marcusUser.id, role: "DESIGNER" }
       });
 
-      // Add project applications
       await prisma.projectApplication.create({
         data: {
           projectId: project.id,
@@ -517,28 +505,26 @@ async function main() {
         }
       });
 
-      // Seed Tasks for EcoTrack workspace
       await prisma.task.createMany({
         data: [
           { projectId: project.id, assigneeId: alexUser.id, title: "Draft Landing Page Layout", description: "Design responsive Tailwind layout grid for dashboard main landing screen", status: "IN_PROGRESS", priority: "HIGH" },
           { projectId: project.id, assigneeId: sarahUser.id, title: "Write User Analytics Route", description: "Create Prisma queries to group carbon savings over time and export as JSON", status: "TODO", priority: "MEDIUM" },
-          { projectId: project.id, assigneeId: marcusUser.id, title: "Review WCAG contrast ratios", description: "Check cobalt primary and deepslate contrast across all text elements to verify compliance", status: "REVIEW", priority: "HIGH" },
+          { projectId: project.id, assigneeId: marcusUser.id, title: "Review accessibility contrast", description: "Check cobalt primary and deepslate contrast across all text elements to verify compliance", status: "REVIEW", priority: "HIGH" },
           { projectId: project.id, assigneeId: alexUser.id, title: "Setup Tailwind custom theme", description: "Inject design system values from Avenza UI specifications", status: "DONE", priority: "LOW" }
         ]
       });
 
-      // Seed Activity Events
       await prisma.activityEvent.createMany({
         data: [
-          { projectId: project.id, actorId: alexUser.id, actionType: "MEMBER_JOIN", details: "Alex Chen initialized the workspace." },
-          { projectId: project.id, actorId: marcusUser.id, actionType: "MEMBER_JOIN", details: "Marcus Kaelen was added as Designer." },
-          { projectId: project.id, actorId: alexUser.id, actionType: "TASK_COMPLETE", details: "Alex Chen completed task: Setup Tailwind custom theme." },
-          { projectId: project.id, actorId: marcusUser.id, actionType: "TASK_CREATE", details: "Marcus Kaelen created task: Review WCAG contrast ratios." }
+          { projectId: project.id, actorId: alexUser.id, actionType: "MEMBER_JOIN", details: "Aarav Mehta initialized the workspace." },
+          { projectId: project.id, actorId: marcusUser.id, actionType: "MEMBER_JOIN", details: "Rohan Joshi was added as Designer." },
+          { projectId: project.id, actorId: alexUser.id, actionType: "TASK_COMPLETE", details: "Aarav Mehta completed task: Setup Tailwind custom theme." },
+          { projectId: project.id, actorId: marcusUser.id, actionType: "TASK_CREATE", details: "Rohan Joshi created task: Review accessibility contrast." }
         ]
       });
     }
 
-    if (project.title === "CampusSync") {
+    if (project.title === "CampusSync Pilani") {
       await prisma.projectMember.create({
         data: { projectId: project.id, userId: davidUser.id, role: "BACKEND" }
       });
@@ -577,14 +563,14 @@ async function main() {
     ]
   });
 
-  // 5. Seed Direct Messages (between Alex & Sarah, Alex & Marcus)
+  // 5. Seed Direct Messages (between Aarav & Shreya, Aarav & Rohan)
   console.log("Seeding messages...");
   await prisma.message.createMany({
     data: [
-      { senderId: alexUser.id, receiverId: sarahUser.id, content: "Hey Sarah! Excited to team up on the carbon footprint app.", createdAt: new Date(Date.now() - 1000 * 60 * 60 * 4) },
-      { senderId: sarahUser.id, receiverId: alexUser.id, content: "Same here Alex. I've drafted some basic ML aggregation scripts for transport logs.", createdAt: new Date(Date.now() - 1000 * 60 * 60 * 3) },
+      { senderId: alexUser.id, receiverId: sarahUser.id, content: "Hey Shreya! Excited to team up on the carbon footprint app.", createdAt: new Date(Date.now() - 1000 * 60 * 60 * 4) },
+      { senderId: sarahUser.id, receiverId: alexUser.id, content: "Same here Aarav. I've drafted some basic ML aggregation scripts for mess logs.", createdAt: new Date(Date.now() - 1000 * 60 * 60 * 3) },
       { senderId: alexUser.id, receiverId: sarahUser.id, content: "Awesome. I'll construct the Prisma models to match that structure. Talk soon!", createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2), isRead: true },
-      { senderId: marcusUser.id, receiverId: alexUser.id, content: "Hi Alex, can you take a look at the Figma layouts for the dashboard?", createdAt: new Date(Date.now() - 1000 * 60 * 60 * 1), isRead: false }
+      { senderId: marcusUser.id, receiverId: alexUser.id, content: "Hi Aarav, can you take a look at the Figma layouts for the dashboard?", createdAt: new Date(Date.now() - 1000 * 60 * 60 * 1), isRead: false }
     ]
   });
 
@@ -592,10 +578,10 @@ async function main() {
   console.log("Seeding notifications...");
   await prisma.notification.createMany({
     data: [
-      { userId: alexUser.id, title: "Connection Request", content: "Liam O'Connor sent you a connection request.", type: "CONNECTION", link: "/connections" },
-      { userId: alexUser.id, title: "New Project Application", content: "Emily Wong applied to join EcoTrack.", type: "APPLICATION", link: "/projects" },
-      { userId: alexUser.id, title: "New Message", content: "Marcus Kaelen sent you a message: 'Hi Alex, can you take...'", type: "MESSAGE", link: "/messages" },
-      { userId: sarahUser.id, title: "Session Confirmed", content: "Alex Chen accepted your session request.", type: "SESSION", link: "/sessions" }
+      { userId: alexUser.id, title: "Connection Request", content: "Devanshu Gupta sent you a connection request.", type: "CONNECTION", link: "/connections" },
+      { userId: alexUser.id, title: "New Project Application", content: "Ananya Sharma applied to join EcoTrack Bharat.", type: "APPLICATION", link: "/projects" },
+      { userId: alexUser.id, title: "New Message", content: "Rohan Joshi sent you a message: 'Hi Aarav, can you take...'", type: "MESSAGE", link: "/messages" },
+      { userId: sarahUser.id, title: "Session Confirmed", content: "Aarav Mehta accepted your session request.", type: "SESSION", link: "/sessions" }
     ]
   });
 

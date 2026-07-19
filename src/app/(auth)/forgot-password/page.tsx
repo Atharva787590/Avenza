@@ -87,7 +87,7 @@ export default function ForgotPasswordPage() {
               <Input
                 name="email"
                 type="email"
-                placeholder="alex.chen@stanford.edu"
+                placeholder="aarav.mehta@iitb.ac.in"
                 required
                 className="pl-10"
                 disabled={loading || !!success}

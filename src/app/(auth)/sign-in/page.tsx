@@ -80,7 +80,7 @@ function SignInForm() {
             <Input
               type="email"
               name="email"
-              placeholder="alex.chen@stanford.edu"
+              placeholder="aarav.mehta@iitb.ac.in"
               required
               disabled={loading}
               className="h-11"

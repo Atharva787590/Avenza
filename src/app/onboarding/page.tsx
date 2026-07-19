@@ -201,13 +201,13 @@ export default function OnboardingPage() {
 
               <div className="space-y-2">
                 <label className="text-xs font-semibold text-cloud uppercase tracking-wider block">Username</label>
-                <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="alexchen" required />
+                <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="aaravm" required />
                 <p className="text-xs text-muted-foreground">Unique identifier used for your profile link.</p>
               </div>
 
               <div className="space-y-2">
                 <label className="text-xs font-semibold text-cloud uppercase tracking-wider block">Location</label>
-                <Input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Palo Alto, CA" required />
+                <Input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Bengaluru, Karnataka" required />
               </div>
 
               <div className="space-y-2">
@@ -244,7 +244,7 @@ export default function OnboardingPage() {
 
               <div className="space-y-2">
                 <label className="text-xs font-semibold text-cloud uppercase tracking-wider block">University/College</label>
-                <Input value={college} onChange={(e) => setCollege(e.target.value)} placeholder="Stanford University" required />
+                <Input value={college} onChange={(e) => setCollege(e.target.value)} placeholder="BITS Pilani" required />
               </div>
 
               <div className="space-y-2">
