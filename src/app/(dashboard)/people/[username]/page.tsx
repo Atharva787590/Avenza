@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { ProfileActions } from "@/components/ProfileActions";
+import { IndianAvatar } from "@/components/IndianAvatar";
 import {
   Globe,
   GraduationCap,
@@ -10,6 +11,9 @@ import {
   Sparkles,
   ArrowRight,
   FolderOpen,
+  Trophy,
+  Award,
+  BookOpen,
 } from "lucide-react";
 import { Github, Linkedin } from "@/components/BrandIcons";
 
@@ -76,7 +80,7 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
     }
   }
 
-  // 3. Compute relative Match Score in-memory
+  // 3. Compute relative Match Score
   let matchScore = 50;
   if (!isOwnProfile) {
     const viewerProfile = await db.profile.findUnique({
@@ -109,45 +113,72 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
     }
   }
 
-  // Extract active project memberships
   const activeProjects = profile.user.memberships.map((m) => m.project);
 
   return (
     <div className="space-y-8 pb-16">
-      {/* Profile Header Card */}
-      <div className="bg-deepslate/35 border border-border rounded-2xl overflow-hidden shadow-lg shadow-ink/40">
-        {/* Banner Geometric CSS Background */}
-        <div className="h-32 bg-gradient-to-r from-deepslate via-indigo-950/20 to-cobalt/20 relative" />
+      {/* ── Official Indian Student ID Card Header ── */}
+      <div className="bg-deepslate/50 border-2 border-saffron/30 rounded-3xl overflow-hidden shadow-2xl shadow-ink/60 relative">
+        {/* Tricolor Top Header Accent Bar */}
+        <div className="h-2 bg-gradient-to-r from-[#FF9933] via-white to-[#138808]" />
 
-        {/* Profile Details area */}
-        <div className="px-8 pb-8 pt-0 relative flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-          <div className="flex flex-col md:flex-row items-center md:items-end gap-5 -mt-10 md:-mt-8">
-            {/* Avatar Circle */}
-            <div className="h-24 w-24 rounded-full bg-cobalt border-4 border-ink flex items-center justify-center font-bold text-3xl text-white shadow-xl relative z-10">
-              {profile.fullName.charAt(0)}
-            </div>
+        {/* Institution Title Bar */}
+        <div className="bg-ink/60 border-b border-border/60 px-8 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-lg">🏛️</span>
+            <span className="text-xs font-bold text-white tracking-widest uppercase font-mono">
+              {profile.college} — OFFICIAL STUDENT ID
+            </span>
+          </div>
+          <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-saffron/10 text-saffron border border-saffron/30">
+            ROLL NO: @{profile.username}
+          </span>
+        </div>
 
-            <div className="text-center md:text-left min-w-0">
-              <div className="flex flex-col sm:flex-row items-center gap-2">
-                <h1 className="text-2xl font-extrabold text-white">{profile.fullName}</h1>
+        {/* Profile Identity Area */}
+        <div className="px-8 py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+            <IndianAvatar name={profile.fullName} avatarUrl={profile.avatarUrl} size="xl" />
+
+            <div className="text-center sm:text-left min-w-0">
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                <h1 className="text-2xl font-extrabold text-white tracking-tight">{profile.fullName}</h1>
                 {!isOwnProfile && (
-                  <span className="text-xs font-bold text-mint bg-mint/10 border border-mint/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span className="text-xs font-bold text-mint bg-mint/10 border border-mint/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
                     <Sparkles className="h-3 w-3" />
                     {matchScore}% Match
                   </span>
                 )}
               </div>
-              <p className="text-sm text-muted-foreground mt-0.5">@{profile.username}</p>
+              <p className="text-xs text-saffron/90 font-mono mt-0.5 font-semibold">@{profile.username}</p>
 
-              <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-1.5 text-xs text-muted-foreground mt-2 font-medium">
-                <span className="flex items-center gap-1.5">
-                  <GraduationCap className="h-4 w-4 text-cobalt" />
-                  {profile.college} ({profile.course})
+              {/* Badges Bar (CGPA, Hackathon Wins, Year) */}
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mt-3">
+                <span className="text-xs font-semibold bg-cobalt/20 text-indigo-300 border border-cobalt/30 px-2.5 py-1 rounded-lg flex items-center gap-1">
+                  <GraduationCap className="h-3.5 w-3.5" />
+                  {profile.course}
+                  {profile.yearOfStudy ? ` · Year ${profile.yearOfStudy}` : ""}
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="h-4 w-4 text-coral" />
-                  {profile.location}
-                </span>
+
+                {profile.cgpa && (
+                  <span className="text-xs font-bold bg-amber/10 text-amber border border-amber/30 px-2.5 py-1 rounded-lg">
+                    CGPA: {profile.cgpa}
+                  </span>
+                )}
+
+                {profile.hackathonWins && profile.hackathonWins > 0 ? (
+                  <span className="text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1">
+                    <Trophy className="h-3.5 w-3.5" />
+                    {profile.hackathonWins} Hackathon Win{profile.hackathonWins > 1 ? "s" : ""}
+                  </span>
+                ) : null}
+
+                {profile.location && (
+                  <span className="text-xs font-semibold bg-deepslate text-muted-foreground border border-border px-2.5 py-1 rounded-lg flex items-center gap-1">
+                    <MapPin className="h-3.5 w-3.5 text-coral" />
+                    {profile.location}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -166,42 +197,42 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left Column: Bio & Core Info */}
+        {/* Left Column: Bio & Projects */}
         <div className="lg:col-span-2 space-y-8">
           {/* Bio */}
-          <div className="bg-deepslate/50 border border-border rounded-xl p-6 space-y-4">
-            <h2 className="text-lg font-bold text-white">About Me</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
+          <div className="bg-deepslate/50 border border-border rounded-2xl p-6 space-y-4">
+            <h2 className="text-base font-bold text-white">Student Overview & Bio</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap font-sans">
               {profile.bio}
             </p>
           </div>
 
-          {/* Collaboration Preferences */}
-          <div className="bg-deepslate/50 border border-border rounded-xl p-6 space-y-4">
-            <h2 className="text-lg font-bold text-white">Collaboration Style & Goals</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
+          {/* Collaboration Goals */}
+          <div className="bg-deepslate/50 border border-border rounded-2xl p-6 space-y-4">
+            <h2 className="text-base font-bold text-white">Collaboration Preferences</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap font-sans">
               {profile.collabPreferences}
             </p>
           </div>
 
-          {/* Projects Co-Authored */}
+          {/* Active Projects */}
           <div className="space-y-4">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <FolderOpen className="h-5 w-5 text-cobalt" />
-              Active Collaborations ({activeProjects.length})
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <FolderOpen className="h-5 w-5 text-saffron" />
+              Active Projects ({activeProjects.length})
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {activeProjects.map((p) => (
                 <div
                   key={p.id}
-                  className="bg-deepslate/50 border border-border rounded-xl p-5 hover:border-cobalt/45 transition-all flex flex-col justify-between group"
+                  className="bg-deepslate/50 border border-border rounded-2xl p-5 hover:border-saffron/40 transition-all flex flex-col justify-between group"
                 >
                   <div>
-                    <span className="text-[10px] bg-cobalt/10 border border-cobalt/20 text-indigo-300 px-2 py-0.5 rounded uppercase font-bold tracking-wide">
+                    <span className="text-[10px] bg-saffron/10 border border-saffron/30 text-saffron px-2 py-0.5 rounded uppercase font-bold tracking-wide">
                       {p.category}
                     </span>
-                    <h3 className="font-bold text-white group-hover:text-cobalt transition-colors mt-3">
+                    <h3 className="font-bold text-white group-hover:text-saffron transition-colors mt-3">
                       {p.title}
                     </h3>
                     <p className="text-xs text-muted-foreground mt-2 line-clamp-3 leading-relaxed">
@@ -215,7 +246,7 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
                     </span>
                     <Link
                       href={`/projects/${p.id}`}
-                      className="text-xs text-cobalt hover:underline font-bold flex items-center gap-1"
+                      className="text-xs text-saffron hover:underline font-bold flex items-center gap-1"
                     >
                       Details
                       <ArrowRight className="h-3 w-3" />
@@ -225,7 +256,7 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
               ))}
 
               {activeProjects.length === 0 && (
-                <div className="sm:col-span-2 py-10 text-center border border-dashed border-border rounded-xl bg-deepslate/25">
+                <div className="sm:col-span-2 py-10 text-center border border-dashed border-border rounded-2xl bg-deepslate/25">
                   <p className="text-xs text-muted-foreground">Not collaborating on any projects yet.</p>
                 </div>
               )}
@@ -233,13 +264,13 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
           </div>
         </div>
 
-        {/* Right Column: Skills, Availability, Social Links */}
+        {/* Right Column: Skills, Social Handles, Availability */}
         <div className="space-y-8">
           {/* Availability Status */}
-          <div className="bg-deepslate/50 border border-border rounded-xl p-6 space-y-4">
+          <div className="bg-deepslate/50 border border-border rounded-2xl p-6 space-y-4">
             <h3 className="font-bold text-white text-xs uppercase tracking-wider">Availability Status</h3>
             <div className="flex items-center gap-2">
-              <span className={`h-2.5 w-2.5 rounded-full ${profile.availability === "ACTIVE" ? "bg-mint" : profile.availability === "WEEKENDS" ? "bg-amber" : "bg-coral"}`} />
+              <span className={`h-2.5 w-2.5 rounded-full ${profile.availability === "ACTIVE" ? "bg-mint animate-pulse" : profile.availability === "WEEKENDS" ? "bg-amber" : "bg-coral"}`} />
               <span className="text-sm font-semibold text-white">
                 {profile.availability === "ACTIVE"
                   ? "Active (Open for co-building)"
@@ -251,8 +282,8 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
           </div>
 
           {/* Social Links */}
-          <div className="bg-deepslate/50 border border-border rounded-xl p-6 space-y-4">
-            <h3 className="font-bold text-white text-xs uppercase tracking-wider">Portfolio & Connect</h3>
+          <div className="bg-deepslate/50 border border-border rounded-2xl p-6 space-y-4">
+            <h3 className="font-bold text-white text-xs uppercase tracking-wider">Verified Handles & Portfolio</h3>
             <div className="space-y-3">
               {profile.githubUrl && (
                 <a
@@ -276,6 +307,28 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
                   LinkedIn Profile
                 </a>
               )}
+              {profile.instagramUrl && (
+                <a
+                  href={profile.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-pink-400 transition-colors"
+                >
+                  <span className="text-pink-400 font-bold">📸</span>
+                  Instagram Handle
+                </a>
+              )}
+              {profile.twitterUrl && (
+                <a
+                  href={profile.twitterUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-sky-400 transition-colors"
+                >
+                  <span className="text-sky-400 font-bold">🐦</span>
+                  Twitter / X Profile
+                </a>
+              )}
               {profile.portfolioUrl && (
                 <a
                   href={profile.portfolioUrl}
@@ -287,15 +340,15 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
                   Personal Portfolio
                 </a>
               )}
-              {!profile.githubUrl && !profile.linkedinUrl && !profile.portfolioUrl && (
-                <p className="text-xs text-muted-foreground">No social portfolio links provided.</p>
+              {!profile.githubUrl && !profile.linkedinUrl && !profile.portfolioUrl && !profile.instagramUrl && !profile.twitterUrl && (
+                <p className="text-xs text-muted-foreground">No portfolio links provided.</p>
               )}
             </div>
           </div>
 
           {/* Skills Trading details */}
-          <div className="bg-deepslate/50 border border-border rounded-xl p-6 space-y-5">
-            <h3 className="font-bold text-white text-xs uppercase tracking-wider">Skills Exchange</h3>
+          <div className="bg-deepslate/50 border border-border rounded-2xl p-6 space-y-5">
+            <h3 className="font-bold text-white text-xs uppercase tracking-wider">Skills & Interests</h3>
 
             {/* Offered Skills */}
             <div className="space-y-2">
@@ -311,9 +364,6 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
                     {s.skillName} ({s.level.toLowerCase()})
                   </span>
                 ))}
-                {profile.offers.length === 0 && (
-                  <p className="text-xs text-muted-foreground">None listed.</p>
-                )}
               </div>
             </div>
 
@@ -331,9 +381,6 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
                     {s.skillName} ({s.level.toLowerCase()})
                   </span>
                 ))}
-                {profile.learns.length === 0 && (
-                  <p className="text-xs text-muted-foreground">None listed.</p>
-                )}
               </div>
             </div>
 
@@ -351,9 +398,6 @@ export default async function PublicProfilePage(props: ProfilePageProps) {
                     #{i.name}
                   </span>
                 ))}
-                {profile.interests.length === 0 && (
-                  <p className="text-xs text-muted-foreground">None listed.</p>
-                )}
               </div>
             </div>
           </div>
