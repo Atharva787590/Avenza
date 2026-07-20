@@ -38,6 +38,7 @@ export default async function MessagesPage() {
       college: profile.college,
       course: profile.course,
       bio: profile.bio,
+      avatarUrl: profile.avatarUrl,
     };
   });
 

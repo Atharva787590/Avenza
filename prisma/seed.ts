@@ -30,19 +30,40 @@ async function main() {
   // Precomputed bcrypt hash for "password123" to make seeding fast
   const passwordHash = await bcrypt.hash("password123", 10);
 
+  const avatarPhotos = [
+    "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&auto=format&fit=crop&q=80", // Male 1
+    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80", // Female 1
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80", // Male 2
+    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80", // Female 2
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80", // Male 3
+    "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&auto=format&fit=crop&q=80", // Female 3
+    "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&auto=format&fit=crop&q=80", // Male 4
+    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&auto=format&fit=crop&q=80", // Female 4
+    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=80", // Male 5
+    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&fit=crop&q=80", // Female 5
+  ];
+
   // 1. Seed Users and Profiles with Indian Context
   const studentData = [
     {
       email: "aarav.mehta@iitb.ac.in",
       username: "aaravm",
       fullName: "Aarav Mehta",
+      avatarUrl: avatarPhotos[0],
       college: "IIT Bombay",
       course: "Computer Science",
       gradYear: 2027,
+      yearOfStudy: 2,
+      cgpa: 9.4,
+      hackathonWins: 3,
+      state: "Maharashtra",
+      city: "Mumbai",
       location: "Mumbai, Maharashtra",
       bio: "Ambitious developer focusing on full-stack web platforms and interactive user interfaces. Passionate about building products for India's builder economy.",
       githubUrl: "https://github.com/aaravmehta",
       linkedinUrl: "https://linkedin.com/in/aaravmehta",
+      instagramUrl: "https://instagram.com/aaravmehta",
+      twitterUrl: "https://x.com/aaravmehta",
       portfolioUrl: "https://aaravmehta.dev",
       availability: "ACTIVE",
       collabPreferences: "Looking to join React/Next.js hackathon teams as frontend lead.",
@@ -63,13 +84,21 @@ async function main() {
       email: "shreya.i@pilani.bits-pilani.ac.in",
       username: "shreyai",
       fullName: "Shreya Iyer",
+      avatarUrl: avatarPhotos[1],
       college: "BITS Pilani",
       course: "Data Science & AI",
       gradYear: 2026,
+      yearOfStudy: 3,
+      cgpa: 9.1,
+      hackathonWins: 2,
+      state: "Rajasthan",
+      city: "Pilani",
       location: "Pilani, Rajasthan",
       bio: "AI researcher turned builder. Interested in applying ML models to agriculture, climate data, and personalized student learning paths.",
       githubUrl: "https://github.com/shreyai",
       linkedinUrl: "https://linkedin.com/in/shreyai",
+      instagramUrl: "https://instagram.com/shreya_iyer",
+      twitterUrl: "https://x.com/shreyai",
       portfolioUrl: "https://shreyai.ai",
       availability: "ACTIVE",
       collabPreferences: "Interested in helping teams integrate AI capabilities, embeddings, or complex analysis dashboards.",
@@ -90,13 +119,20 @@ async function main() {
       email: "rohan.j@iiit.ac.in",
       username: "rohanj",
       fullName: "Rohan Joshi",
+      avatarUrl: avatarPhotos[2],
       college: "IIIT Hyderabad",
       course: "Cognitive Science",
       gradYear: 2028,
+      yearOfStudy: 1,
+      cgpa: 8.8,
+      hackathonWins: 1,
+      state: "Telangana",
+      city: "Hyderabad",
       location: "Hyderabad, Telangana",
       bio: "UX Designer and Researcher. Passionate about localizing interfaces, accessibility, and creating digital experiences that feel intuitive and clean.",
       githubUrl: "https://github.com/rohanjdesign",
       linkedinUrl: "https://linkedin.com/in/rohanj",
+      instagramUrl: "https://instagram.com/rohanj_ux",
       portfolioUrl: "https://rohanj.design",
       availability: "WEEKENDS",
       collabPreferences: "Looking for back-end developers to partner on accessibility-oriented educational projects.",
@@ -116,13 +152,20 @@ async function main() {
       email: "ananya.s@dtu.ac.in",
       username: "ananyas",
       fullName: "Ananya Sharma",
+      avatarUrl: avatarPhotos[3],
       college: "DTU Delhi",
       course: "Computer Science",
       gradYear: 2027,
+      yearOfStudy: 2,
+      cgpa: 9.3,
+      hackathonWins: 4,
+      state: "Delhi (NCT)",
+      city: "New Delhi",
       location: "Delhi NCR",
       bio: "Mobile-first developer. Flutter enthusiast who loves compiling beautiful cross-platform applications and exploring micro-interactions.",
       githubUrl: "https://github.com/ananyas",
       linkedinUrl: "https://linkedin.com/in/ananyas",
+      instagramUrl: "https://instagram.com/ananya_sharma",
       portfolioUrl: "https://ananya.dev",
       availability: "ACTIVE",
       collabPreferences: "Open to team projects requiring cross-platform mobile apps.",
@@ -142,13 +185,20 @@ async function main() {
       email: "kabir.n@rvce.edu.in",
       username: "kabirn",
       fullName: "Kabir Nair",
+      avatarUrl: avatarPhotos[4],
       college: "RVCE Bengaluru",
       course: "Software Engineering",
       gradYear: 2026,
+      yearOfStudy: 3,
+      cgpa: 8.9,
+      hackathonWins: 2,
+      state: "Karnataka",
+      city: "Bengaluru",
       location: "Bengaluru, Karnataka",
       bio: "Back-end architect. Love optimizing SQL query plans, designing robust database schemas, and writing secure REST & GraphQL endpoints.",
       githubUrl: "https://github.com/kabirn-backend",
       linkedinUrl: "https://linkedin.com/in/kabirn-backend",
+      twitterUrl: "https://x.com/kabirn_dev",
       portfolioUrl: "https://kabirn.io",
       availability: "BUSY",
       collabPreferences: "Happy to advise on database schema design, indexing, or API structures for student projects.",
@@ -188,6 +238,11 @@ async function main() {
         "Pune, Maharashtra", "Chennai, Tamil Nadu", "Kolkata, West Bengal", "Pilani, Rajasthan",
         "Goa", "Vellore, Tamil Nadu"
       ];
+      const statesList = [
+        "Karnataka", "Maharashtra", "Delhi (NCT)", "Telangana",
+        "Maharashtra", "Tamil Nadu", "West Bengal", "Rajasthan",
+        "Goa", "Tamil Nadu"
+      ];
       const skillsPool = [
         "React", "TypeScript", "Python", "Node.js", "Figma", "UI/UX Design", "Docker", "SQL",
         "Machine Learning", "FastAPI", "Go", "Java", "C++", "Next.js", "Tailwind CSS"
@@ -198,18 +253,27 @@ async function main() {
       const college = colleges[i % colleges.length];
       const course = courses[(i + 2) % courses.length];
       const city = cities[i % cities.length];
+      const photo = avatarPhotos[(i + 5) % avatarPhotos.length];
 
       return {
         email: `${username}@college.edu.in`,
         username,
         fullName: name,
+        avatarUrl: photo,
         college,
         course,
         gradYear: 2026 + (i % 3),
+        yearOfStudy: 1 + (i % 4),
+        cgpa: Number((8.1 + (i * 0.07) % 1.7).toFixed(1)),
+        hackathonWins: i % 3,
+        state: statesList[i % statesList.length],
+        city: city.split(",")[0],
         location: city,
         bio: `Student at ${college} studying ${course}. Eager to collaborate on student builder initiatives.`,
         githubUrl: `https://github.com/${username}`,
         linkedinUrl: `https://linkedin.com/in/${username}`,
+        instagramUrl: `https://instagram.com/${username}`,
+        twitterUrl: `https://x.com/${username}`,
         portfolioUrl: `https://${username}.me`,
         availability: i % 2 === 0 ? "ACTIVE" as const : "WEEKENDS" as const,
         collabPreferences: "Open to joining new projects or sharing skills.",
@@ -233,7 +297,6 @@ async function main() {
   const createdUsers: SeedUser[] = [];
 
   for (const item of studentData) {
-    // Add one admin role for testing
     let role = "STUDENT";
     if (item.username === "aaravm") {
       role = "ADMIN";
@@ -248,13 +311,21 @@ async function main() {
           create: {
             username: item.username,
             fullName: item.fullName,
+            avatarUrl: item.avatarUrl,
             college: item.college,
             course: item.course,
             gradYear: item.gradYear,
+            yearOfStudy: item.yearOfStudy,
+            cgpa: item.cgpa,
+            hackathonWins: item.hackathonWins,
+            state: item.state,
+            city: item.city,
             location: item.location,
             bio: item.bio,
             githubUrl: item.githubUrl,
             linkedinUrl: item.linkedinUrl,
+            instagramUrl: item.instagramUrl,
+            twitterUrl: item.twitterUrl,
             portfolioUrl: item.portfolioUrl,
             availability: item.availability,
             collabPreferences: item.collabPreferences,

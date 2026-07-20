@@ -7,6 +7,12 @@ export interface RecommendedUser {
   college: string;
   course: string;
   gradYear: number;
+  yearOfStudy?: number | null;
+  cgpa?: number | null;
+  hackathonWins?: number;
+  location?: string | null;
+  state?: string | null;
+  city?: string | null;
   bio: string;
   avatarUrl: string | null;
   matchScore: number;
@@ -123,6 +129,12 @@ export async function getRecommendations(userId: string): Promise<RecommendedUse
           college: prof.college,
           course: prof.course,
           gradYear: prof.gradYear,
+          yearOfStudy: prof.yearOfStudy,
+          cgpa: prof.cgpa,
+          hackathonWins: prof.hackathonWins,
+          location: prof.location,
+          state: prof.state,
+          city: prof.city,
           bio: prof.bio,
           avatarUrl: prof.avatarUrl,
           matchScore: finalScore,
