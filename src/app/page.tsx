@@ -1,283 +1,320 @@
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import { Constellation } from "@/components/Constellation";
-import { ArrowRight, Code, Compass, Users, Workflow } from "lucide-react";
+import { ArrowRight, Code, Compass, Users, Workflow, Sparkles, CheckCircle2, BookOpen, UserPlus, ShieldCheck, Lock } from "lucide-react";
 
 export default async function LandingPage() {
   const session = await getSession();
 
   return (
-    <div className="flex-1 bg-ink text-cloud flex flex-col relative overflow-hidden">
-      {/* Header */}
-      <header className="border-b border-border/40 bg-ink/90 backdrop-blur-md sticky top-0 z-40 transition-colors">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-9 w-9 rounded bg-cobalt flex items-center justify-center font-bold text-lg text-white tracking-wider">
-              A
-            </div>
-            <span className="text-xl font-bold tracking-tight text-white font-sans">Avenza</span>
-          </div>
+    <div className="flex-1 bg-[#FBF9F5] text-[#18181B] flex flex-col relative overflow-hidden font-sans">
+      {/* Background SVG Grid Overlay matching screenshot */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none opacity-40"
+        style={{
+          backgroundImage: `radial-gradient(#E2DFD7 1px, transparent 1px), linear-gradient(to right, #F3F0E8 1px, transparent 1px), linear-gradient(to bottom, #F3F0E8 1px, transparent 1px)`,
+          backgroundSize: "24px 24px, 48px 48px, 48px 48px",
+        }}
+      />
 
-          <nav className="flex items-center gap-6">
+      {/* ── Top Header Navigation Bar ── */}
+      <header className="border-b border-[#EAE7DF] bg-[#FBF9F5]/90 backdrop-blur-md sticky top-0 z-40 transition-colors">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-1.5 group">
+            <span className="text-2xl font-black tracking-tight text-[#FF3B30] font-sans lowercase">avenza</span>
+            <div className="h-4 w-4 bg-[#FF3B30] clip-path-triangle flex items-center justify-center text-[10px] text-white font-bold rounded-sm shadow-sm group-hover:scale-110 transition-transform">
+              ▲
+            </div>
+          </Link>
+
+          {/* Navigation Links */}
+          <nav className="flex items-center gap-8 text-sm font-medium text-[#52525B]">
+            <a href="#features" className="hover:text-[#18181B] transition-colors hidden sm:block">
+              Services
+            </a>
+            <a href="#how-it-works" className="hover:text-[#18181B] transition-colors hidden sm:block">
+              How it works
+            </a>
+            <Link href="/discover" className="hover:text-[#18181B] transition-colors">
+              Discover Peers
+            </Link>
+            <a href="#process" className="hover:text-[#18181B] transition-colors hidden md:block">
+              Process
+            </a>
+
             {session ? (
               <Link
                 href="/dashboard"
-                className="inline-flex items-center justify-center rounded bg-cobalt px-4 py-2 text-sm font-semibold text-white hover:bg-opacity-95 shadow-sm shadow-cobalt/20 transition-all cursor-pointer font-sans"
+                className="inline-flex items-center justify-center rounded-full bg-[#FF3B30] px-6 py-2.5 text-xs font-bold text-white hover:bg-[#E03126] shadow-md shadow-red-500/20 transition-all cursor-pointer"
               >
-                Dashboard
-                <ArrowRight className="ml-2 h-4 w-4" />
+                Dashboard →
               </Link>
             ) : (
-              <>
+              <div className="flex items-center gap-4">
                 <Link
                   href="/sign-in"
-                  className="text-sm font-medium text-muted-foreground hover:text-cloud transition-colors font-sans"
+                  className="text-sm font-semibold text-[#18181B] hover:text-[#FF3B30] transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/sign-up"
-                  className="inline-flex items-center justify-center rounded bg-cobalt px-4 py-2 text-sm font-semibold text-white hover:bg-opacity-95 shadow-sm shadow-cobalt/20 transition-all cursor-pointer font-sans"
+                  className="inline-flex items-center justify-center rounded-full bg-[#FF3B30] px-6 py-2.5 text-xs font-bold text-white hover:bg-[#E03126] shadow-md shadow-red-500/20 transition-all cursor-pointer"
                 >
-                  Join Now
+                  Create Account
                 </Link>
-              </>
+              </div>
             )}
           </nav>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center py-20 px-6 border-b border-border/30 bg-ink">
-        {/* Constellation Canvas background */}
-        <div className="absolute inset-0 z-0">
-          <Constellation />
-        </div>
+      {/* ── Hero Section ── */}
+      <section className="relative min-h-[82vh] flex items-center py-16 px-6 max-w-7xl mx-auto w-full z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+          {/* Left Column: Headline & Action Buttons */}
+          <div className="lg:col-span-7 space-y-8 text-left z-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#E2DFD7] bg-[#F3F0E8] text-[#FF3B30] text-xs font-mono font-semibold tracking-wider">
+              <span className="h-2 w-2 rounded-full bg-[#FF3B30] animate-pulse" />
+              India&apos;s Premier Student Builder Hub
+            </div>
 
-        <div className="max-w-4xl mx-auto text-center relative z-10 select-none">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded border border-border/40 bg-deepslate/30 text-mint text-xs font-mono uppercase tracking-wider mb-6">
-            <span className="h-1.5 w-1.5 rounded-full bg-mint animate-pulse" />
-            {"India's"} Premier Student Builder Hub
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-light tracking-tight text-[#18181B] leading-[1.1] font-sans">
+              From idea<br />
+              to <span className="text-[#FF3B30] font-normal italic">production</span>
+            </h1>
+
+            <p className="text-base sm:text-lg text-[#52525B] max-w-xl leading-relaxed font-normal">
+              A compact, premier engineering network for Indian student developers, researchers, and co-builders. Modular architecture, practical AI, and collaborative tools in every delivery.
+            </p>
+
+            {/* Action Buttons matching screenshot */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              {session ? (
+                <Link
+                  href="/dashboard"
+                  className="inline-flex items-center justify-center rounded-full bg-[#FF3B30] px-8 py-3.5 text-sm font-semibold text-white hover:bg-[#E03126] shadow-lg shadow-red-500/20 transition-all cursor-pointer"
+                >
+                  Go to Dashboard
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    href="/sign-up"
+                    className="inline-flex items-center justify-center rounded-full bg-[#FF3B30] px-8 py-3.5 text-sm font-semibold text-white hover:bg-[#E03126] shadow-lg shadow-red-500/20 transition-all cursor-pointer"
+                  >
+                    Create Free Account
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="/sign-in"
+                    className="inline-flex items-center justify-center rounded-full bg-[#27272A] px-8 py-3.5 text-sm font-semibold text-white hover:bg-black transition-all cursor-pointer"
+                  >
+                    Sign In
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight font-sans">
-            Find your co-builders.<br />
-            <span className="text-cobalt">
-              Build what matters.
-            </span>
-          </h1>
-
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed font-sans font-normal">
-            Avenza is India&apos;s dedicated platform for college builders — IITs, BITS, NITs, IIITs and beyond.
-            Find hackathon partners, trade technical skills, manage projects together, and keep shared study notes with your connections.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            {session ? (
-              <Link
-                href="/dashboard"
-                className="w-full sm:w-auto inline-flex items-center justify-center rounded bg-cobalt px-8 py-3.5 text-base font-semibold text-white hover:bg-opacity-90 shadow shadow-cobalt/20 transition-all cursor-pointer font-sans"
-              >
-                Go to Dashboard
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            ) : (
-              <>
-                <Link
-                  href="/sign-up"
-                  className="w-full sm:w-auto inline-flex items-center justify-center rounded bg-cobalt px-8 py-3.5 text-base font-semibold text-white hover:bg-opacity-90 shadow shadow-cobalt/20 transition-all cursor-pointer font-sans"
-                >
-                  Create Free Profile
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-                <Link
-                  href="/sign-in"
-                  className="w-full sm:w-auto inline-flex items-center justify-center rounded border border-border bg-deepslate/40 backdrop-blur px-8 py-3.5 text-base font-semibold text-cloud hover:bg-deepslate/60 transition-all cursor-pointer font-sans"
-                >
-                  Explore Directory
-                </Link>
-              </>
-            )}
+          {/* Right Column: Interactive 3D Wireframe Sphere Graphic */}
+          <div className="lg:col-span-5 h-[480px] relative flex items-center justify-center">
+            <div className="w-full h-full relative">
+              <Constellation />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section className="py-24 px-6 max-w-7xl mx-auto w-full relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight text-white mb-4 font-sans">
-            Everything Indian student builders need
+      {/* ── Bottom Metrics Strip (Matching screenshot footer metrics) ── */}
+      <section className="border-t border-b border-[#EAE7DF] bg-[#F5F2EA]/80 py-8 px-6 z-10">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="border-r border-[#E2DFD7] last:border-r-0 pr-4">
+            <div className="text-3xl font-extrabold text-[#18181B] font-mono">72h</div>
+            <div className="text-xs text-[#71717A] uppercase tracking-wider font-semibold mt-1">
+              Custom Hackathon Sprint
+            </div>
+          </div>
+          <div className="border-r border-[#E2DFD7] last:border-r-0 pr-4">
+            <div className="text-3xl font-extrabold text-[#FF3B30] font-mono">100%</div>
+            <div className="text-xs text-[#71717A] uppercase tracking-wider font-semibold mt-1">
+              Student Verified ID
+            </div>
+          </div>
+          <div className="border-r border-[#E2DFD7] last:border-r-0 pr-4">
+            <div className="text-3xl font-extrabold text-[#18181B] font-mono">~2h</div>
+            <div className="text-xs text-[#71717A] uppercase tracking-wider font-semibold mt-1">
+              Response Time
+            </div>
+          </div>
+          <div>
+            <div className="text-3xl font-extrabold text-[#18181B] font-mono">40+</div>
+            <div className="text-xs text-[#71717A] uppercase tracking-wider font-semibold mt-1">
+              Indian Campuses
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── MANDATORY STEP-BY-STEP USER JOURNEY SECTION ── */}
+      <section id="how-it-works" className="py-24 px-6 max-w-7xl mx-auto w-full z-10">
+        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+          <span className="text-xs font-mono font-bold text-[#FF3B30] uppercase tracking-widest">
+            Step-by-Step Access Process
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#18181B]">
+            How Every Student Joins Avenza
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base font-sans">
-            No recruiter noise. No corporate filler. Just focused tools for co-founding, collaborating, and building from campus.
+          <p className="text-sm text-[#71717A] leading-relaxed">
+            To maintain a high-trust builder network, every individual user completes a mandatory 3-step onboarding before accessing the platform dashboard.
           </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          {/* Step 1 */}
+          <div className="bg-[#FFFFFF] border border-[#EAE7DF] p-8 rounded-3xl shadow-sm space-y-4 relative hover:border-[#FF3B30]/40 transition-all group">
+            <div className="h-12 w-12 rounded-2xl bg-[#FF3B30]/10 text-[#FF3B30] font-bold text-lg flex items-center justify-center font-mono">
+              01
+            </div>
+            <h3 className="text-lg font-bold text-[#18181B]">1. Register & Sign Up</h3>
+            <p className="text-xs text-[#71717A] leading-relaxed">
+              Create your account with any email address (Gmail, Outlook, or official university email).
+            </p>
+            <Link
+              href="/sign-up"
+              className="inline-flex items-center text-xs font-bold text-[#FF3B30] hover:underline pt-2"
+            >
+              Sign Up Now →
+            </Link>
+          </div>
+
+          {/* Step 2 */}
+          <div className="bg-[#FFFFFF] border border-[#EAE7DF] p-8 rounded-3xl shadow-sm space-y-4 relative hover:border-[#FF3B30]/40 transition-all group">
+            <div className="h-12 w-12 rounded-2xl bg-[#18181B]/10 text-[#18181B] font-bold text-lg flex items-center justify-center font-mono">
+              02
+            </div>
+            <h3 className="text-lg font-bold text-[#18181B]">2. Authenticate Sign In</h3>
+            <p className="text-xs text-[#71717A] leading-relaxed">
+              Log in securely with encrypted session tokens. If onboarding is incomplete, you are automatically directed to setup.
+            </p>
+            <Link
+              href="/sign-in"
+              className="inline-flex items-center text-xs font-bold text-[#18181B] hover:underline pt-2"
+            >
+              Sign In →
+            </Link>
+          </div>
+
+          {/* Step 3 */}
+          <div className="bg-[#FFFFFF] border border-[#EAE7DF] p-8 rounded-3xl shadow-sm space-y-4 relative hover:border-[#FF3B30]/40 transition-all group">
+            <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 text-emerald-600 font-bold text-lg flex items-center justify-center font-mono">
+              03
+            </div>
+            <h3 className="text-lg font-bold text-[#18181B]">3. Provide All Info & Launch ID</h3>
+            <p className="text-xs text-[#71717A] leading-relaxed">
+              Fill out your 5-step Indian Student ID profile (college, CGPA, hackathon wins, skills, social handles) to unlock the dashboard.
+            </p>
+            <Link
+              href="/onboarding"
+              className="inline-flex items-center text-xs font-bold text-emerald-600 hover:underline pt-2"
+            >
+              Complete Profile →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Features Services Grid Section ── */}
+      <section id="features" className="py-20 px-6 max-w-7xl mx-auto w-full z-10 border-t border-[#EAE7DF]">
+        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+          <span className="text-xs font-mono font-bold text-[#FF3B30] uppercase tracking-widest">
+            Core Platform Features
+          </span>
+          <h2 className="text-3xl font-bold text-[#18181B]">Designed For Campus Builders</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Card 1 — Directory */}
-          <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
-            <div>
-              <div className="h-10 w-10 rounded bg-cobalt/10 text-cobalt flex items-center justify-center mb-6">
-                <Compass className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Student Directory</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed font-sans">
-                Browse students from IITs, BITS, NITs by college, major, CGPA, hackathon wins, skills, and availability. Connect with co-founders in seconds.
-              </p>
+          {/* Card 1 */}
+          <div className="bg-[#FFFFFF] border border-[#EAE7DF] p-6 rounded-2xl shadow-sm hover:border-[#FF3B30]/40 transition-all space-y-3">
+            <div className="h-10 w-10 rounded-xl bg-[#FF3B30]/10 text-[#FF3B30] flex items-center justify-center">
+              <Compass className="h-5 w-5" />
             </div>
-            <div className="text-[10px] text-mint font-mono uppercase tracking-wider mt-6">Discovery Engine</div>
-          </div>
-
-          {/* Card 2 — Skill Exchange */}
-          <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
-            <div>
-              <div className="h-10 w-10 rounded bg-mint/10 text-mint flex items-center justify-center mb-6">
-                <Users className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Skill Exchange</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed font-sans">
-                Trade expertise with peers. Swap React skills for DSA coaching, Figma lessons for ML tutorials — in focused, peer-to-peer sessions.
-              </p>
-            </div>
-            <div className="text-[10px] text-mint font-mono uppercase tracking-wider mt-6">Peer-to-Peer</div>
-          </div>
-
-          {/* Card 3 — Hackathon Teams */}
-          <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
-            <div>
-              <div className="h-10 w-10 rounded bg-amber/10 text-amber flex items-center justify-center mb-6">
-                <Code className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Hackathon Teams</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed font-sans">
-                Find team members for SIH, Hack the Mountains, HackJNU and more. Post roles, apply to existing ideas, and ship fast together.
-              </p>
-            </div>
-            <div className="text-[10px] text-amber font-mono uppercase tracking-wider mt-6">Team Recruitment</div>
-          </div>
-
-          {/* Card 4 — Shared Notes */}
-          <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
-            <div>
-              <div className="h-10 w-10 rounded bg-yellow-500/10 text-yellow-400 flex items-center justify-center mb-6">
-                <Workflow className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Shared Study Notes</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed font-sans">
-                Keep private collaborative notepads with every connection — for study resources, hackathon ideas, meeting notes, and code snippets.
-              </p>
-            </div>
-            <div className="text-[10px] text-yellow-400 font-mono uppercase tracking-wider mt-6">Study Collaboration</div>
-          </div>
-
-          {/* Card 5 — Direct Messages */}
-          <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
-            <div>
-              <div className="h-10 w-10 rounded bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-6">
-                <Users className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Direct Messages</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed font-sans">
-                Chat directly with your connections. Discuss projects, schedule sessions, and exchange resources — all in one place.
-              </p>
-            </div>
-            <div className="text-[10px] text-indigo-400 font-mono uppercase tracking-wider mt-6">Peer Chat</div>
-          </div>
-
-          {/* Card 6 — Project Workspace */}
-          <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
-            <div>
-              <div className="h-10 w-10 rounded bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-6">
-                <Compass className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Project Workspace</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed font-sans">
-                Kanban boards, milestones, resource links, and activity feeds — a full mini-project management suite for student teams.
-              </p>
-            </div>
-            <div className="text-[10px] text-emerald-400 font-mono uppercase tracking-wider mt-6">Workspace Suite</div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Divider */}
-      <section className="border-t border-b border-border/30 bg-deepslate/10 py-12 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <div className="text-3xl font-extrabold text-white mb-1 font-mono">50+</div>
-            <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Student Builders</div>
-          </div>
-          <div>
-            <div className="text-3xl font-extrabold text-white mb-1 font-mono">15+</div>
-            <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Active Projects</div>
-          </div>
-          <div>
-            <div className="text-3xl font-extrabold text-white mb-1 font-mono">30+</div>
-            <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Colleges Represented</div>
-          </div>
-          <div>
-            <div className="text-3xl font-extrabold text-white mb-1 font-mono">0%</div>
-            <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Recruiter Noise</div>
-          </div>
-        </div>
-      </section>
-
-      {/* System Citations & Architecture */}
-      <section className="py-16 px-6 max-w-7xl mx-auto w-full border-b border-border/30">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-          <div className="md:col-span-4">
-            <h3 className="text-lg font-bold text-white mb-2 font-sans">System Citations</h3>
-            <p className="text-xs text-muted-foreground leading-relaxed font-sans">
-              Avenza is engineered with a modular directory structure, decoupling user matching from live project collaboration suites. Listed below are the primary technologies and dependency paths backing this workspace.
+            <h3 className="text-base font-bold text-[#18181B]">Student Directory & @Username Search</h3>
+            <p className="text-xs text-[#71717A] leading-relaxed">
+              Connect with students across IITs, BITS, NITs using Instagram/LinkedIn style `@username` searches and skill filters.
             </p>
           </div>
-          <div className="md:col-span-8 overflow-x-auto">
-            <table className="min-w-full text-left text-xs font-mono border-collapse">
-              <thead>
-                <tr className="border-b border-border/40 text-muted-foreground">
-                  <th className="py-2 pr-4 font-semibold">Module</th>
-                  <th className="py-2 pr-4 font-semibold">Dependency / Spec</th>
-                  <th className="py-2 font-semibold">Description</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border/20 text-muted-foreground">
-                <tr>
-                  <td className="py-2.5 pr-4 font-semibold text-white">Client Shell</td>
-                  <td className="py-2.5 pr-4">React 19, Next.js 16.2.10</td>
-                  <td className="py-2.5">App Router architecture utilizing proxy-level routing.</td>
-                </tr>
-                <tr>
-                  <td className="py-2.5 pr-4 font-semibold text-white">Data Modeling</td>
-                  <td className="py-2.5 pr-4">Prisma ORM 6.3.0, SQLite 3</td>
-                  <td className="py-2.5">Relational schema handling profile matching and project milestones.</td>
-                </tr>
-                <tr>
-                  <td className="py-2.5 pr-4 font-semibold text-white">Graphics & Canvas</td>
-                  <td className="py-2.5 pr-4">HTML5 Canvas 2D Context</td>
-                  <td className="py-2.5">3D perspective projection coordinate rendering without external libraries.</td>
-                </tr>
-                <tr>
-                  <td className="py-2.5 pr-4 font-semibold text-white">Style Utility</td>
-                  <td className="py-2.5 pr-4">Tailwind CSS 4.x</td>
-                  <td className="py-2.5">Minimalist color variables mapping core structural tokens.</td>
-                </tr>
-              </tbody>
-            </table>
+
+          {/* Card 2 */}
+          <div className="bg-[#FFFFFF] border border-[#EAE7DF] p-6 rounded-2xl shadow-sm hover:border-[#FF3B30]/40 transition-all space-y-3">
+            <div className="h-10 w-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
+              <Users className="h-5 w-5" />
+            </div>
+            <h3 className="text-base font-bold text-[#18181B]">WhatsApp-Style In-App Messaging</h3>
+            <p className="text-xs text-[#71717A] leading-relaxed">
+              Direct in-app chat with WhatsApp-style emerald bubbles, IST timestamps, double checkmarks, and emoji shortcuts.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-[#FFFFFF] border border-[#EAE7DF] p-6 rounded-2xl shadow-sm hover:border-[#FF3B30]/40 transition-all space-y-3">
+            <div className="h-10 w-10 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center">
+              <BookOpen className="h-5 w-5" />
+            </div>
+            <h3 className="text-base font-bold text-[#18181B]">Shared Study Notes & Notepad</h3>
+            <p className="text-xs text-[#71717A] leading-relaxed">
+              Private collaborative notepad per connected pair for study resources, meeting minutes, and code snippets with auto-save.
+            </p>
+          </div>
+
+          {/* Card 4 */}
+          <div className="bg-[#FFFFFF] border border-[#EAE7DF] p-6 rounded-2xl shadow-sm hover:border-[#FF3B30]/40 transition-all space-y-3">
+            <div className="h-10 w-10 rounded-xl bg-purple-500/10 text-purple-600 flex items-center justify-center">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <h3 className="text-base font-bold text-[#18181B]">Digital Ideas Canvas & Gemini AI</h3>
+            <p className="text-xs text-[#71717A] leading-relaxed">
+              Post hackathon idea cards and run Gemini AI to generate project ideas, checklists, and Hinglish concept summaries.
+            </p>
+          </div>
+
+          {/* Card 5 */}
+          <div className="bg-[#FFFFFF] border border-[#EAE7DF] p-6 rounded-2xl shadow-sm hover:border-[#FF3B30]/40 transition-all space-y-3">
+            <div className="h-10 w-10 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
+              <Code className="h-5 w-5" />
+            </div>
+            <h3 className="text-base font-bold text-[#18181B]">Hackathon Team Recruitment</h3>
+            <p className="text-xs text-[#71717A] leading-relaxed">
+              Find teammates for Smart India Hackathon (SIH) and college fests by filtering skills offered and needed.
+            </p>
+          </div>
+
+          {/* Card 6 */}
+          <div className="bg-[#FFFFFF] border border-[#EAE7DF] p-6 rounded-2xl shadow-sm hover:border-[#FF3B30]/40 transition-all space-y-3">
+            <div className="h-10 w-10 rounded-xl bg-[#18181B]/10 text-[#18181B] flex items-center justify-center">
+              <Workflow className="h-5 w-5" />
+            </div>
+            <h3 className="text-base font-bold text-[#18181B]">Project Kanban Workspaces</h3>
+            <p className="text-xs text-[#71717A] leading-relaxed">
+              Integrated project management suite with task boards, milestone tracking, resource links, and team activity feeds.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border/30 bg-ink py-10 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2">
-            <div className="h-7 w-7 rounded bg-cobalt flex items-center justify-center font-bold text-sm text-white tracking-wider">
-              A
+      {/* ── Footer ── */}
+      <footer className="border-t border-[#EAE7DF] bg-[#F5F2EA] py-12 px-6 z-10">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-1.5">
+            <span className="text-xl font-black tracking-tight text-[#FF3B30] lowercase">avenza</span>
+            <div className="h-3 w-3 bg-[#FF3B30] text-[8px] text-white font-bold flex items-center justify-center rounded-sm">
+              ▲
             </div>
-            <span className="text-sm font-semibold tracking-tight text-white">Avenza</span>
           </div>
-          <p className="text-xs text-muted-foreground font-sans">
-            © {new Date().getFullYear()} Avenza. Built for ambitious student teams. All rights reserved.
+          <p className="text-xs text-[#71717A]">
+            © {new Date().getFullYear()} Avenza. Built for Indian student engineering teams & co-builders.
           </p>
         </div>
       </footer>

@@ -37,6 +37,11 @@ export default async function DashboardLayout({ children }: LayoutProps) {
     where: { userId: session.userId },
   });
 
+  // If profile is missing (incomplete onboarding), force user to complete onboarding first
+  if (!profile) {
+    redirect("/onboarding");
+  }
+
   const unreadNotificationsCount = await db.notification.count({
     where: { userId: session.userId, isRead: false },
   });
