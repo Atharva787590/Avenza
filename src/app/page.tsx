@@ -68,7 +68,8 @@ export default async function LandingPage() {
           </h1>
 
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed font-sans font-normal">
-            Avenza is a high-utility directory and collaborative workspace tailored specifically for ambitious engineering students in India. Discover peers at IITs, BITS, NITs, and IIITs, trade technical skills, and manage projects in shared workspaces.
+            Avenza is India&apos;s dedicated platform for college builders — IITs, BITS, NITs, IIITs and beyond.
+            Find hackathon partners, trade technical skills, manage projects together, and keep shared study notes with your connections.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -105,15 +106,15 @@ export default async function LandingPage() {
       <section className="py-24 px-6 max-w-7xl mx-auto w-full relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold tracking-tight text-white mb-4 font-sans">
-            Designed for high-utility collaboration
+            Everything Indian student builders need
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base font-sans">
-            Skip the noise of generic social media. Focus on finding co-founders, building side projects, and sharing hard skills.
+            No recruiter noise. No corporate filler. Just focused tools for co-founding, collaborating, and building from campus.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Card 1 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Card 1 — Directory */}
           <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
             <div>
               <div className="h-10 w-10 rounded bg-cobalt/10 text-cobalt flex items-center justify-center mb-6">
@@ -121,15 +122,13 @@ export default async function LandingPage() {
               </div>
               <h3 className="text-lg font-semibold text-white mb-2 font-sans">Student Directory</h3>
               <p className="text-sm text-muted-foreground leading-relaxed font-sans">
-                Filter students by college (IITs, BITS, NITs), major, interests, and skills. Connect with co-founders and contributors instantly.
+                Browse students from IITs, BITS, NITs by college, major, CGPA, hackathon wins, skills, and availability. Connect with co-founders in seconds.
               </p>
             </div>
-            <div className="text-[10px] text-mint font-mono uppercase tracking-wider mt-6">
-              Discovery Engine
-            </div>
+            <div className="text-[10px] text-mint font-mono uppercase tracking-wider mt-6">Discovery Engine</div>
           </div>
 
-          {/* Card 2 */}
+          {/* Card 2 — Skill Exchange */}
           <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
             <div>
               <div className="h-10 w-10 rounded bg-mint/10 text-mint flex items-center justify-center mb-6">
@@ -137,44 +136,66 @@ export default async function LandingPage() {
               </div>
               <h3 className="text-lg font-semibold text-white mb-2 font-sans">Skill Exchange</h3>
               <p className="text-sm text-muted-foreground leading-relaxed font-sans">
-                Trade your expertise. Swap React design skills for machine learning tutorials in focused peer-to-peer learning sessions.
+                Trade expertise with peers. Swap React skills for DSA coaching, Figma lessons for ML tutorials — in focused, peer-to-peer sessions.
               </p>
             </div>
-            <div className="text-[10px] text-mint font-mono uppercase tracking-wider mt-6">
-              Peer-to-Peer
-            </div>
+            <div className="text-[10px] text-mint font-mono uppercase tracking-wider mt-6">Peer-to-Peer</div>
           </div>
 
-          {/* Card 3 */}
+          {/* Card 3 — Hackathon Teams */}
+          <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
+            <div>
+              <div className="h-10 w-10 rounded bg-amber/10 text-amber flex items-center justify-center mb-6">
+                <Code className="h-5 w-5" />
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Hackathon Teams</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed font-sans">
+                Find team members for SIH, Hack the Mountains, HackJNU and more. Post roles, apply to existing ideas, and ship fast together.
+              </p>
+            </div>
+            <div className="text-[10px] text-amber font-mono uppercase tracking-wider mt-6">Team Recruitment</div>
+          </div>
+
+          {/* Card 4 — Shared Notes */}
+          <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
+            <div>
+              <div className="h-10 w-10 rounded bg-yellow-500/10 text-yellow-400 flex items-center justify-center mb-6">
+                <Workflow className="h-5 w-5" />
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Shared Study Notes</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed font-sans">
+                Keep private collaborative notepads with every connection — for study resources, hackathon ideas, meeting notes, and code snippets.
+              </p>
+            </div>
+            <div className="text-[10px] text-yellow-400 font-mono uppercase tracking-wider mt-6">Study Collaboration</div>
+          </div>
+
+          {/* Card 5 — Direct Messages */}
           <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
             <div>
               <div className="h-10 w-10 rounded bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-6">
-                <Code className="h-5 w-5" />
+                <Users className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Launch Teams</h3>
+              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Direct Messages</h3>
               <p className="text-sm text-muted-foreground leading-relaxed font-sans">
-                Create project opportunities or apply to existing hackathon ideas. Recruit specialized student roles across campuses.
+                Chat directly with your connections. Discuss projects, schedule sessions, and exchange resources — all in one place.
               </p>
             </div>
-            <div className="text-[10px] text-mint font-mono uppercase tracking-wider mt-6">
-              Recruitment
-            </div>
+            <div className="text-[10px] text-indigo-400 font-mono uppercase tracking-wider mt-6">Peer Chat</div>
           </div>
 
-          {/* Card 4 */}
+          {/* Card 6 — Project Workspace */}
           <div className="bg-deepslate/20 border border-border/40 p-6 rounded hover:border-cobalt/40 transition-all flex flex-col justify-between group">
             <div>
               <div className="h-10 w-10 rounded bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-6">
-                <Workflow className="h-5 w-5" />
+                <Compass className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Shared Workspace</h3>
+              <h3 className="text-lg font-semibold text-white mb-2 font-sans">Project Workspace</h3>
               <p className="text-sm text-muted-foreground leading-relaxed font-sans">
-                Manage collaboration using an integrated Kanban board, team milestones, resource listings, and activities.
+                Kanban boards, milestones, resource links, and activity feeds — a full mini-project management suite for student teams.
               </p>
             </div>
-            <div className="text-[10px] text-mint font-mono uppercase tracking-wider mt-6">
-              Workspace Suite
-            </div>
+            <div className="text-[10px] text-emerald-400 font-mono uppercase tracking-wider mt-6">Workspace Suite</div>
           </div>
         </div>
       </section>
@@ -183,16 +204,16 @@ export default async function LandingPage() {
       <section className="border-t border-b border-border/30 bg-deepslate/10 py-12 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <div className="text-3xl font-extrabold text-white mb-1 font-mono">25+</div>
-            <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Active Profiles</div>
+            <div className="text-3xl font-extrabold text-white mb-1 font-mono">50+</div>
+            <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Student Builders</div>
           </div>
           <div>
-            <div className="text-3xl font-extrabold text-white mb-1 font-mono">10+</div>
+            <div className="text-3xl font-extrabold text-white mb-1 font-mono">15+</div>
             <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Active Projects</div>
           </div>
           <div>
-            <div className="text-3xl font-extrabold text-white mb-1 font-mono">100%</div>
-            <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Student Verified</div>
+            <div className="text-3xl font-extrabold text-white mb-1 font-mono">30+</div>
+            <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Colleges Represented</div>
           </div>
           <div>
             <div className="text-3xl font-extrabold text-white mb-1 font-mono">0%</div>

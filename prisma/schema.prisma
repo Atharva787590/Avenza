@@ -32,27 +32,38 @@ model User {
 }
 
 model Profile {
-  id               String            @id @default(uuid())
-  userId           String            @unique
-  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  username         String            @unique
-  fullName         String
-  avatarUrl        String?
-  bannerUrl        String?
-  college          String
-  course           String
-  gradYear         Int
-  location         String
-  bio              String
-  githubUrl        String?
-  linkedinUrl      String?
-  portfolioUrl     String?
-  availability     String            @default("ACTIVE") // ACTIVE, BUSY, WEEKENDS
+  id                String            @id @default(uuid())
+  userId            String            @unique
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  username          String            @unique
+  fullName          String
+  avatarUrl         String?
+  bannerUrl         String?
+  college           String
+  course            String
+  gradYear          Int
+  yearOfStudy       Int?              // 1, 2, 3, 4 (year of study)
+  cgpa              Float?            // e.g. 8.5
+  location          String
+  state             String?           // Indian state
+  city              String?           // Indian city
+  bio               String
+  phone             String?           // optional phone number
+  gender            String?           // MALE, FEMALE, OTHER, PREFER_NOT_TO_SAY
+  dateOfBirth       String?           // ISO date string
+  hackathonWins     Int               @default(0)
+  achievements      String?           // JSON-encoded string array
+  githubUrl         String?
+  linkedinUrl       String?
+  portfolioUrl      String?
+  instagramUrl      String?
+  twitterUrl        String?
+  availability      String            @default("ACTIVE") // ACTIVE, BUSY, WEEKENDS
   collabPreferences String
-  createdAt        DateTime          @default(now())
-  offers           SkillOffer[]
-  learns           SkillLearn[]
-  interests        ProfileInterest[]
+  createdAt         DateTime          @default(now())
+  offers            SkillOffer[]
+  learns            SkillLearn[]
+  interests         ProfileInterest[]
 }
 
 model SkillOffer {
@@ -249,3 +260,15 @@ model ModerationReport {
   status     String   @default("PENDING") // PENDING, RESOLVED
   createdAt  DateTime @default(now())
 }
+
+model SharedNote {
+  id        String   @id @default(uuid())
+  userAId   String
+  userBId   String
+  content   String   @default("")
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  @@unique([userAId, userBId])
+}
+

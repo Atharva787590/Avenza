@@ -7,40 +7,66 @@ import { signInAction } from "@/lib/actions/auth";
 import { useToast } from "@/components/ui/toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Lock, Mail } from "lucide-react";
+import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 
 function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { toast } = useToast();
+
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  // Client-side field errors for instant feedback
+  const [fieldErrors, setFieldErrors] = React.useState<{
+    email?: string;
+    password?: string;
+  }>({});
 
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
 
+  const validateFields = (email: string, password: string) => {
+    const errors: { email?: string; password?: string } = {};
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errors.email = "Please enter a valid email address.";
+    }
+    if (!password) {
+      errors.password = "Password is required.";
+    }
+    return errors;
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
 
     const formData = new FormData(e.currentTarget);
+    const email = (formData.get("email") as string) || "";
+    const password = (formData.get("password") as string) || "";
+
+    // Client-side validation before hitting the server
+    const clientErrors = validateFields(email, password);
+    if (Object.keys(clientErrors).length > 0) {
+      setFieldErrors(clientErrors);
+      return;
+    }
+    setFieldErrors({});
+    setLoading(true);
+
     const result = await signInAction(null, formData);
 
     if (result.success) {
       toast({
-        title: "Signed In Successfully",
+        title: "Signed In",
         description: result.message,
         type: "success",
       });
-
-      if (result.hasProfile) {
-        router.push(callbackUrl);
-      } else {
-        router.push("/onboarding");
-      }
-      router.refresh();
+      // Push then refresh — router.refresh() is intentionally removed
+      // to avoid a race condition where both compete.
+      router.push(result.hasProfile ? callbackUrl : "/onboarding");
     } else {
-      setError(result.error || "An error occurred.");
+      setError(result.error || "An error occurred. Please try again.");
       toast({
         title: "Sign In Failed",
         description: result.error,
@@ -71,22 +97,32 @@ function SignInForm() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+          {/* Email */}
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-cloud uppercase tracking-wider flex items-center gap-1.5">
               <Mail className="h-4 w-4 text-cobalt" />
-              University Email
+              Email Address
             </label>
             <Input
               type="email"
               name="email"
-              placeholder="aarav.mehta@iitb.ac.in"
+              placeholder="yourname@gmail.com"
               required
+              autoComplete="email"
               disabled={loading}
-              className="h-11"
+              className={`h-11 ${fieldErrors.email ? "border-coral/60 focus-visible:ring-coral/30" : ""}`}
+              onChange={() =>
+                fieldErrors.email &&
+                setFieldErrors((p) => ({ ...p, email: undefined }))
+              }
             />
+            {fieldErrors.email && (
+              <p className="text-[11px] text-coral">{fieldErrors.email}</p>
+            )}
           </div>
 
+          {/* Password */}
           <div className="space-y-1.5">
             <div className="flex justify-between items-center">
               <label className="text-xs font-semibold text-cloud uppercase tracking-wider flex items-center gap-1.5">
@@ -100,14 +136,37 @@ function SignInForm() {
                 Forgot?
               </Link>
             </div>
-            <Input
-              type="password"
-              name="password"
-              placeholder="••••••••"
-              required
-              disabled={loading}
-              className="h-11"
-            />
+            <div className="relative">
+              <Input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="••••••••"
+                required
+                autoComplete="current-password"
+                disabled={loading}
+                className={`h-11 pr-10 ${fieldErrors.password ? "border-coral/60 focus-visible:ring-coral/30" : ""}`}
+                onChange={() =>
+                  fieldErrors.password &&
+                  setFieldErrors((p) => ({ ...p, password: undefined }))
+                }
+              />
+              <button
+                type="button"
+                tabIndex={-1}
+                onClick={() => setShowPassword((v) => !v)}
+                className="absolute inset-y-0 right-3 flex items-center text-muted-foreground hover:text-white transition-colors"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
+            </div>
+            {fieldErrors.password && (
+              <p className="text-[11px] text-coral">{fieldErrors.password}</p>
+            )}
           </div>
 
           <Button
@@ -115,7 +174,14 @@ function SignInForm() {
             className="w-full mt-2 font-semibold h-11"
             disabled={loading}
           >
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? (
+              <span className="flex items-center gap-2">
+                <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Signing in…
+              </span>
+            ) : (
+              "Sign In"
+            )}
           </Button>
         </form>
 
@@ -139,7 +205,13 @@ export default function SignInPage() {
   return (
     <div className="flex-1 flex items-center justify-center py-20 px-6 bg-ink relative">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-cobalt/5 rounded-full blur-[100px] pointer-events-none" />
-      <React.Suspense fallback={<div className="text-center text-xs text-muted-foreground py-10">Loading Avenza Authentication...</div>}>
+      <React.Suspense
+        fallback={
+          <div className="text-center text-xs text-muted-foreground py-10">
+            Loading Avenza Authentication…
+          </div>
+        }
+      >
         <SignInForm />
       </React.Suspense>
     </div>

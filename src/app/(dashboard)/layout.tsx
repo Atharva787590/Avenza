@@ -17,6 +17,7 @@ import {
   ShieldAlert,
   Bookmark,
   LogOut,
+  StickyNote,
 } from "lucide-react";
 
 interface LayoutProps {
@@ -47,6 +48,7 @@ export default async function DashboardLayout({ children }: LayoutProps) {
     { label: "Discover Peers", href: "/discover", icon: Users },
     { label: "Explore Projects", href: "/projects", icon: Folder },
     { label: "Mentorship Sessions", href: "/sessions", icon: Sparkles },
+    { label: "Study Notes", href: "/notes", icon: StickyNote },
     { label: "Saved Bookmarks", href: "/saved", icon: Bookmark },
     {
       label: "Direct Messages",
